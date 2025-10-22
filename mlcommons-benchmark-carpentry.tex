@@ -1,0 +1,52 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts % Enable funding footnote if needed
+\input{paper-format}
+
+\definecolor{headerblue}{RGB}{100, 149, 237} % Cornflower Blue
+\definecolor{lightgray}{gray}{0.9}
+\newcommand{\headerfont}{\fontsize{10pt}{12pt}\selectfont\bfseries}
+
+\begin{document}
+
+\onecolumn
+\tableofcontents
+\twocolumn
+
+\title{AI Benchmarks Carpentry and Democratization}
+
+\FINPUT{000-authors}
+
+\maketitle
+
+\FINPUT{001-abstract}
+\FINPUT{002-intro}
+\FINPUT{003-definitions}
+\FINPUT{004-formal}
+\FINPUT{005-benchmark-review}
+\FINPUT{006-review-gpu-benchmarks}
+\FINPUT{007-energy-benchmarks}
+%%% \FINPUT{008-gpu-info}
+\FINPUT{009-share}
+\FINPUT{010-profile}
+\FINPUT{011-sim}
+
+
+\FINPUT{091-acknowledgments}
+\FINPUT{092-glossary}
+
+%%% \FINPUT{099-appendix}
+
+\bibliographystyle{IEEEtran} 
+
+\bibliography{%
+vonLaszewski-frontiers-citations,%
+ref-carpentry,%
+ref-sinclair, %
+ref-energy, %
+ref-hpcbench %
+}
+\appendix
+
+\FINPUT{paper-abbrev}
+
+\end{document}

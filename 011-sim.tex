@@ -1,0 +1,80 @@
+\section{Simulation as a Tool to Benefit AI Benchmark Carpentry and Democratization}
+\label{sec:sim}
+
+% MLCommons Science report:
+% 1/2 column  - 1 column on simulator availability for running ML workloads -- their pros and cons
+% Make sure to talk about Wes' work at scale at ORNL
+
+%\TODO{gem5+SST, Running PyTorch/TensorFlow in gem5 and Accel-Sim (Matt)}
+One of the opportunities to impact AI democratizing and benchmark carpentry is the introduction of simulation of AI hardware and software infrastructures. 
+As part of this, recent work in the modeling and simulation community has significantly improved the options for users to study how their optimizations to ML workloads affect them.
+Although there are a wide array of tools that can be used, we focus on four of the most popular, widely used tools: Accel-Sim \cite{KhairyShen2021-accelSim}, gem5~\cite{binkert2011gem5, LowePowerAhmad2020-gem520}, SST \cite{RodriguesHemmert2011-sst, SST}, and Digital Twins \cite{brewer2024digital}.
+These tools are often used in academia, industry, and national labs because they enable high fidelity, early-stage design exploration.
+Moreover, they also enable users who do not have access to real hardware or who are prototyping optimizations for hardware that does not exist yet to simulate the behavior of popular ML workloads while balancing performance and power tradeoffs.
+
+\noindent
+\textbf{Accel-Sim}~\cite{KhairyShen2021-accelSim}: For users interested in simulating ML workloads on modern NVIDIA (Volta through Blackwell) GPUs, Accel-Sim offers a great combination of high fidelity and usability.
+Accel-Sim builds upon the popular GPGPU-Sim~\cite{BakhodaYuan2009-gpgpuSim}, and has an integrated power model~\cite{KandiahPeverelle2021-accelWattch}.
+This allows users to examine power and performance tradeoffs for ML workloads.
+
+\begin{comment}
+Originally, GPGPU-Sim supported running ML workloads natively: i.e., it required either direct access to the CUDA source code or access the underlying PTX (NVIDIA's virtual assembly language which is portable across GPUs) to run ML workloads~\cite{LewShah2018-gpgpusimML}.
+%Unfortunately, starting with CUDA 8.1, NVIDIA stopped including PTX in their binaries for their libraries -- preventing users from running ML workloads that included popular libraries like cuDNN and cuBLAS.
+\end{comment}
+
+Currently, Accel-Sim supports running ML workloads in three formats: direct CUDA source code, CUDA programs with library calls where the library includes the PTX for the library calls (only for CUDA 8.1 and earlier~\cite{LewShah2018-gpgpusimML}), and direct SASS (NVIDIA's machine assembly language) execution.
+As NVIDIA's libraries (e.g., cuDNN, cuBLAS) grow increasingly complex, and software like PyTorch add additional complexity on top of these libraries, the third option is the most popular as it can trace through multiple layers of software (e.g., PyTorch, cuBLAS).
+Moreover, to make the simulator's runtime more tractable, recent work has demonstrated how to identify and simulate a representative subset of a given workload without significantly compromising accuracy~\cite{AvalosKhairy2021-pka}.
+As a result, Accel-Sim is widely used by users who want to improve the efficiency of a given GPU.
+However, because Accel-Sim focuses on the GPU, it is likely not the right choice for users who want to study the interaction with other components in the system (e.g., the CPU or other accelerators).
+Accel-Sim also does not focus heavily on the GPU cache coherence and memory consistency protocols.
+
+\noindent
+\textbf{gem5}~\cite{binkert2011gem5, LowePowerAhmad2020-gem520}: %The gem5 simulator is another widely used tool for modeling workloads, including ML workloads.
+The gem5 simulator is another popular tool used in computer system research to evaluate novel hardware designs. 
+To support this use case, gem5 provides a robust API for researchers to modify and extend current models and to create new models in the gem5 infrastructure.
+The gem5 simulator implements a large number of models for system components for CPUs (out-of-order designs, in-order designs, and others), AMD and ARM GPUs~\cite{GutierrezBeckmann2018-gem5GPU}, accelerators~\cite{RogersSlycord2020-gem5Salam, SpencerRogers2024-gem5Salam2, ChaudhariSinclair2025-gem5Accel}, various memories, on-chip interconnects, coherent caches, I/O devices, and many others.
+The models in gem5 have enough fidelity to boot Linux, run unmodified applications, and investigate cross-layer designs.
+
+Thus, gem5 enables rapid prototyping of hardware-software co-designs across the computing stack.
+For example, users can prototype optimizations to the compiler, OS, or runtime in tandem with architectural changes and study the implications of their design choices.
+Like Accel-Sim, gem5 has an integrated power model~\cite{SmithBruce2024-gem5Power} and also supports running popular ML workloads both natively and through frameworks like PyTorch -- including adding support for advanced techniques to tradeoff simulation time for reduced fidelity in less important application regions~\cite{RamadasPoremba2023-gem5GPUFS, RamadasPoremba2024-gem5MLSim, RamadasSinclair2024-gem5MLSim}.
+However, gem5's support for ML workloads differs in three key ways from Accel-Sim's.
+% ML for more than just the GPU
+First, unlike Accel-Sim, gem5's support for ML workloads spans across different types of compute devices, including CPUs and accelerators.
+% AMD vs. NVIDIA
+Second, gem5 currently focuses its support on AMD GPUs.
+Since AMD's GPU runtime and drivers are open-source, this enables gem5 to model co-design between additional layers of the computing stack because it simulates all of those layers (unlike Accel-Sim).
+% modeling interfaces and such
+Finally, gem5 also has highly accurate models for cache coherence, memory consistency, and interfaces between components in the system like the GPU's Command Processor.
+Thus, gem5 is likely a good choice for users who want to study how ML workloads behave across different components in the system or who want to prototype optimizations across layers of the computing stack.
+However, since many users focus on NVIDIA GPUs and gem5 currently does not support them, users who are deeply tied to the NVIDIA ecosystem will not find it useful.
+
+\noindent
+\textbf{SST}~\cite{RodriguesHemmert2011-sst,SST}: Accel-Sim and gem5 focus on modeling a single GPU (Accel-Sim, gem5) or a single system-on-a-chip (gem5).
+However, modern, large-scale computing systems frequently have hundreds or thousands of processors (e.g., GPUs) integrated together.
+Thus, for users who want to study the behavior of ML workloads in rack-scale systems, the Structural Simulation Toolkit (SST) is a good option.
+Instead of using high fidelity, but often slow models for components like processors in a system (like Accel-Sim and gem5 do), SST instead utilizes analytical models for these components and focuses on modeling the networking across many components.
+Thus, SST is much faster and scalable.
+However, for users who want to focus on both smaller- and larger-scale systems, both Accel-Sim~\cite{sandia_2, sandia_3} and gem5~\cite{hsieh2012gem5sst, nguyen2022gem5sst} have integrated their models with SST -- potentially providing the best of both worlds.
+
+\noindent
+\textbf{Digital Twins}~\cite{brewer2024digital}: Users who want to examine the behavior of ML workloads at even larger, datacenter- or supercomputer-level scales, may consider utilizing the recent work on Digital Twins.
+This work creates a framework to run these workloads at supercomputer-level scales and model the interaction of a variety of components, including the cooling for the entire system and the physical footprint of the system.
+\TODO{Frontier (Wes): update/add to}
+
+\TODO{conclusion for this subsection and impact on future democratization and carpentry is missing}
+
+\begin{table}[htb]
+\caption{Example Simulation tools that benefit AI benchmark simulations \TODO{maybe other rows?}}
+\begin{center}
+\begin{tabular}{llll}
+Tool/Software & Scale & Benefits & Application \\
+\hline
+Accel-Sim \cite{KhairyShen2021-accelSim}& ? & ? & ?\\ 
+gem5 \cite{binkert2011gem5, LowePowerAhmad2020-gem520} & ? & ? & ?\\ 
+SST \cite{RodriguesHemmert2011-sst, SST} & ? & ? & ?\\ 
+Digital Twins \cite{brewer2024digital} & ? & ? & ?\\ 
+\end{tabular}
+\end{center}
+\end{table}

@@ -1,0 +1,482 @@
+\section{Energy Benchmarking}
+\label{sec:energy}
+
+Energy consumption has quickly become a critical dimension of machine learning benchmarking. Training and infernce with modern AI systems can require enormous computational resources. Training a single large-scale language model can consume megawatt-hours of electricity, often rivaling the annual energy consumption of households.  
+To illustrate the issue, we have provided in Table \ref{tab:energy-chatgpt} the energy required to train various ChatGPT models (some of which are projected, as no concrete data has been released). Additionally, we have included the energy cost for one million inference calls.
+
+Here, training energy refers to total estimated power consumption during model training; inference energy represents the approximate power required for one million user queries. Values are derived from public estimates and projections—OpenAI has not released official figures \cite{sciencefeedback2024energy,kaplan2020scaling}.
+\TODO{are these refences different from 110-115?}
+
+GPT-3 took roughly 1287 MWh to train~\cite{en18174701}, this is roughly equivalent to the annual power consumption of 130 homes in the US~\cite{WECEnergy}. 
+\TODO{are these refences different from 110-115?}
+
+For DOE leadership class machines such as hosted at Oakridge National Laboratory (see Table \ref{tab:ornl-energy}) we find documented the significant progress toward exascale but at the cost of increased energy consumption that more then doubled in the last generational upgrade. However the Peak Performance per energy unit has significantly increased and compared to the initial values from Jaguar, Frontier has improved by a factor of 209.
+
+
+\begin{table}[tb]
+\centering
+\caption{Estimated Energy Consumption of GPT Models for Training and Inference 
+(based on \cite{brown2020language, patterson2021carbon, medium2023gpt4carbon, 
+extremenetworks2023energy, epochai2024compute, hackernoon2024dirtysecret}).}
+\label{tab:energy-chatgpt}
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Model} & \textbf{\makecell{Training Energy\\(MWh)}} & \textbf{\makecell{Inference Energy\\(per 1M queries, MWh)}} \\
+\hline
+\hline
+GPT-3 & $\sim$1,287 \cite{baeldung2023energy,patterson2021carbon} & $\sim$50--100 \\
+\hline
+GPT-4 & 51,773--62,319 \cite{medium2023gpt4carbon,extremenetworks2023energy} & $\sim$600--1,000 \\ \hline 
+GPT-5 & $>$60,000 (estimated) \cite{epochai2024compute,hackernoon2024dirtysecret} & $\sim$800--1,200 \\ \hline
+GPT-6 & 80,000--100,000 (projected) \cite{epochai2024compute} & $\sim$1,000--1,500 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/gpt_energy_comparison.pdf}
+    \caption{Energy consumption for training ChatGPT and {\bf medium} inferenceing 1 Million queries.}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\begin{table}[tb]
+
+    \caption{Evolution of the leadership class supercomputer at Oak Ridge National Laboratory}
+    \label{tab:ornl-energy}
+    
+    \resizebox{\columnwidth}{!}{
+        \begin{tabular}{|l|c|l|r|r|r|}
+            \hline
+            \textbf{Machine} & \textbf{Year} & \textbf{Architecture} & \textbf{\makecell{Peak \\ Performance\\(PF)$^*$}} & \textbf{\makecell{Power\\ (MW)}} & \textbf{\makecell{Performance/\\Power\\(PF/MW)}} \\
+            \hline
+            \hline
+            Jaguar   & 2009 & Multi-core CPU & 2.3   & 7  & 0.33 \\
+            \hline
+            Titan    & 2012 & Hybrid CPU/GPU & 27    & 9  & 3.00 \\
+            \hline
+            Summit   & 2017 & Hybrid CPU/GPU & 200   & 13 & 15.38 \\
+            \hline
+            Frontier & 2021 & Hybrid CPU/GPU & 2000  & 29 & 68.97 \\
+            \hline
+        \end{tabular}
+    }
+
+    \smallskip
+    {\tiny~~ $^*$PF=\emph{peta–floating-point operations per second}; $1\;\text{PF}=10^{15}\text{FLOPS}.$
+
+    ~~~ Data derived from \cite{papatheodore2022summitfrontier}.
+    }
+\end{table}
+
+If we, however, only focus on traditional benchmarks using metrics such as FLOPS or latency, we provide performance insights but overlook {\em energy-to-solution}, which measures the total energy required to complete a task. Without perspective, researchers and practitioners focus on optimizing for speed at the expense of sustainability and cost efficiency. 
+
+Thus we believe it is important to make energy benchmarks an important aspect of AI benchmarks. Energy benchmarking ought to address the following:
+
+\begin{itemize}
+     \item Quantify the environmental footprint of AI workloads (carbon emissions, renewable vs. non-renewable energy use).
+     \item Highlight economic tradeoffs in large-scale computing (cloud costs, datacenter efficiency). 
+     \item Guide hardware and algorithmic choices towards a more effective architecture.
+     \item Support policy and funding decisions by providing transparent data on sustainability. 
+ \end{itemize}
+
+Energy aware benchmarks help ensure that AI development aligns with broader goals of responsible computing making results reproducible, performant, economically and environmentally sustainable. 
+
+Thus we see two opportunities. First, we need to make energy benchmarks more prominent and provide materials and tutorials as part of AI benchmark carpentry to educate the community. Second, we must make sure that not only the most expensive hardware such as leadership class and hyper-scale data centers are used, but also medium scale and even small scale so that democratizing energy benchmarks in the community is easy to do and execute. This way measurements of even smaller AI based scientific applications can integrate energy consumption in their benchmarks and meaningful comparisons to even traditional algorithms that do not use AI can be drawn.
+
+\subsection{AI energy benchmark carpentry}
+
+To support AI energy benchmark carpentry efforts we need to address the following issues:
+
+\begin{itemize}
+\item Conduct a relevant survey of existing efforts
+\item Identify Metrics useful for AI benchmarks 
+\item Identify how to leverage existing and create new leader boards focusing on energy metrics
+\item Identify simple to use blueprints as part of the carpentry efforts that can be replicated and reused as well as serve as basis for newly developed benchmarks.
+\item conduct community outreach to offer carpentry tutorials that focus on AI benchmarks instead of just AI software and services.
+\item identify how to obtain and integrate meaningful and practical metrics (example: data centers may not provide uniform access to energy data.) Thus, energy data collection and access must be part of the carpentry efforts.
+\end{itemize}
+
+Strategies to integrate energy into AI benchmark carpentries and improving access to metrics for democratizing them include creating logs during runtime focusing on:
+
+\begin{itemize}
+    \item Logging ambient temperature and humidity.
+    \item Logging sample power at regular intervals or averages over the run.
+    \item Store the logging data in an easy to parse format (CSV, JSON, YAML) 
+    \item Upload results as artifacts in support of the FAIR principal and make available for comparison.
+\end{itemize}
+
+Next we discuss some of the aspects that needs to be addressed by AI benchmark energy as part of AI benchmark carpentry.
+
+
+\subsection{Energy Metrics.}
+
+There are various energy metrics that one can consider. The community may not be aware of them and a need exists to provide such information. It is also important to identify metrics that can be used in leader boards for comparison, but they must be obtained in a matter that allows fair and informed comparisons. Hence documenting how the experiment needs to be conducted is imperative instead of just referring to the metric. In principal blueprints should be used and adapted to make the comparison across hardware and software more easily possible. Energy metrics are used on different layers of the infrastructure used in AI benchmarks that is similar to classical HPC infrastructure. We provide an example of using different metrics on the various layers in Figure \ref{fig:energy-metric-layer}. Such diagrams should be integrated in the blueprints provided to the users as to simplify understanding the scope of the benchmarks.
+
+\TODO{the figure should be modified to also include the purpose}
+
+
+\begin{figure}
+\begin{center}
+\resizebox{1.0\columnwidth}{!}{
+\begin{tikzpicture}[
+    box/.style={rectangle, rounded corners, draw=black, very thick, text width=6cm, align=center, minimum height=1.5cm, fill=white!90!gray},
+    layer/.style={rectangle, rounded corners, draw=blue!50!black, very thick, text width=8cm, align=center, minimum height=1cm, fill=blue!10},
+    metric/.style={rectangle, draw=red!50!black, thick, text width=4cm, align=center, minimum height=0.8cm, fill=red!10},
+    labelbox/.style={rectangle, draw=green!50!black, thick, text width=3cm, align=center, minimum height=0.6cm, fill=green!10},
+    arrow/.style={-Latex, thick}
+]
+
+% =========================================================================
+% Facility Layer (Top)
+% =========================================================================
+\node (facility_layer) at (0, 0) [layer] {\textbf{3. Facility/Data Center Layer}};
+\node at (0, -0.7) {\footnotesize \emph{Focus: CSR Reporting, Infrastructure Management}};
+
+\node (pue) at (-4, -2) [metric] {\textbf{PUE} \\ (Power Usage Effectiveness)};
+\node (dcie) at (4, -2) [metric] {\textbf{DCiE} \\ (Data Center Infrastructure Efficiency)};
+
+\node (pue_eq) at (-4, -3.5) [box, text width=5cm, minimum height=1.2cm] {$$ \text{PUE} = \frac{\text{Total Facility Energy}}{\text{IT Equipment Energy}} $$};
+\node (dcie_eq) at (4, -3.5) [box, text width=3.3cm, minimum height=1.2cm] {$$ \text{DCiE} = \frac{1}{\text{PUE}} \times 100\% $$};
+
+\draw [arrow] (facility_layer.south) -- ++(0, -0.5) coordinate (split1);
+\draw [arrow] (split1) -- (pue);
+\draw [arrow] (split1) -- (dcie);
+\draw [arrow] (pue) -- (pue_eq);
+\draw [arrow] (dcie) -- (dcie_eq);
+
+% =========================================================================
+% Job Layer (Middle)
+% =========================================================================
+\node (job_layer) at (0, -6) [layer] {\textbf{2. Job/System Layer}};
+\node at (0, -6.7) {\footnotesize \emph{Focus: Power-Cap Schedulers, System Optimization}};
+
+\node (kwh) at (-4, -8) [metric] {\textbf{kWh} \\ (Kilowatt-hour)};
+\node (edp) at (4, -8) [metric] {\textbf{Energy–Delay Product} (EDP)};
+
+\node (edp_def) at (4, -9.5) [box, text width=3.5cm, minimum height=1.2cm] {$$ \text{EDP} \propto \text{Energy} \times \text{Delay} $$};
+
+\draw [arrow] (job_layer.south) -- ++(0, -0.5) coordinate (split2);
+\draw [arrow] (split2) -- (kwh);
+\draw [arrow] (split2) -- (edp);
+\draw [arrow] (edp) -- (edp_def);
+
+% =========================================================================
+% Device Layer (Bottom)
+% =========================================================================
+\node (device_layer) at (0, -12) [layer] {\textbf{1. Device/Micro-architectural Layer}};
+\node at (0, -12.7) {\footnotesize \emph{Focus: Micro-architectural Hot-spots, Hardware Limits}};
+
+\node (eperop) at (-4, -14) [metric] {\textbf{Energy per flop} or \\ \textbf{Energy per inference}};
+\node (temp) at (4, -14) [labelbox] {\textbf{Temperature Sensors} \\ (\emph{Non-KPI})};
+
+\node (eperop_def) at (-4, -15.5) [box, text width=3.5cm, minimum height=1.2cm] {Energy per single \\ computational unit};
+
+\node (temp_reason) at (4, -15.5) [box, text width=3.5cm, minimum height=1.5cm] {Logged because \textbf{thermal headroom} bounds safe \textbf{DVFS} ranges.};
+
+\draw [arrow] (device_layer.south) -- ++(0, -0.5) coordinate (split3);
+\draw [arrow] (split3) -- (eperop);
+\draw [arrow] (split3) -- (temp);
+\draw [arrow] (eperop) -- (eperop_def);
+\draw [arrow] (temp) -- (temp_reason);
+
+% Connecting the layers vertically
+\draw [arrow, line width=2pt, dashed, gray] (job_layer.north) -- (facility_layer.south);
+\draw [arrow, line width=2pt, dashed, gray] (device_layer.north) -- (job_layer.south);
+
+\node at (0, -5) [align=center] {\textbf{Drives Schedulers} \\ $\uparrow$};
+\node at (0, -11) [align=center] {\textbf{Informs System Config} \\ $\uparrow$};
+
+\end{tikzpicture}
+}
+\end{center}
+\caption{Illustration of example for metrics as used in the layered system architecture used in large scale AI benchmarking.}
+\label{fig:energy-metric-layer}
+\end{figure}
+
+\TODO{explore or replace EDP, at least define it. I think Armstrong did not define. It may actually not be a popular metric, but this seems quite useful to me (e.g. Gregor)}
+
+\TODO{here some text. not sure if useful}
+
+\textbf{Layer-Specific Metrics for Energy and Efficiency}
+
+This framework categorizes metrics based on the operational layer they apply to, guiding authors on \textbf{what to log} and reviewers on \textbf{how to compare} submissions running on diverse hardware.
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+    \item \textbf{Device/Micro-architectural Layer}
+    \begin{itemize}
+        \item \emph{Focus:} Pinpointing \textbf{micro-architectural hot-spots} and understanding hardware performance limits.
+        \item \emph{Key Metric:} \textbf{Energy per flop} or \textbf{Energy per inference}
+        \begin{itemize}
+            \item \emph{Purpose:} Measures the energy consumed to perform a single computational operation (a floating-point operation or an inference).
+        \end{itemize}
+        \item \emph{Related Logging (Non-KPI):} \textbf{Inlet and Outlet Temperature Sensors}
+        \begin{itemize}
+            \item \emph{Purpose:} Logged because \textbf{thermal headroom} directly bounds the safe \textbf{Dynamic Voltage and Frequency Scaling (DVFS)} ranges.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Job/System Layer}
+    \begin{itemize}
+        \item \emph{Focus:} Operational metrics driving \textbf{power-cap schedulers} and optimizing overall system utilization.
+        \item \emph{Key Metric 1:} \textbf{Kilowatt-hour (kWh)}
+        \begin{itemize}
+            \item \emph{Purpose:} The total energy consumed by a specific job or set of jobs over its duration.
+        \end{itemize}
+        \item \emph{Key Metric 2:} \textbf{Energy--Delay Product (EDP)}
+        \begin{itemize}
+            \item \emph{Purpose:} A combined metric of energy and time (energy $\times$ delay) used to assess the overall efficiency of a computation. Lower EDP generally indicates better performance and efficiency.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Facility/Data Center Layer}
+    \begin{itemize}
+        \item \emph{Focus:} High-level reporting to satisfy goals like \textbf{Corporate Social Responsibility (CSR)}.
+        \item \emph{Key Metric 1:} \textbf{Power Usage Effectiveness (PUE)}
+        \begin{itemize}
+            \item \emph{Formula (Conceptual):} $ \text{PUE} = \frac{\text{Total Facility Energy}}{\text{IT Equipment Energy}} $
+            \item \emph{Purpose:} A ratio that measures how efficiently a data center uses energy. An ideal PUE is 1.0 (meaning all energy goes to the IT equipment).
+        \end{itemize}
+        \item \emph{Key Metric 2:} \textbf{Data Center Infrastructure Efficiency (DCiE)}
+        \begin{itemize}
+            \item \emph{Formula (Conceptual):} $ \text{DCiE} = \frac{1}{\text{PUE}} \times 100\% $
+            \item \emph{Purpose:} The reciprocal of PUE, expressed as a percentage. It shows what percentage of the total data center energy is actually used by the IT equipment.
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.5cm}
+This tiered structure allows for meaningful comparisons and decision-making at every level of the computing infrastructure.
+
+
+\subsection{OLD TEXT}
+
+\TODO{evaluate and improve the next section. IT does not yet flow with the introduction.}
+
+\TODO{ adding the phrase ``Why it matters for carpentry.'' does not address my original concern. Often i find that the next sentence does not answer the question why it matters. It would be great to get input from others on this. I leave the next section for now as is ... }
+
+
+To close this gap, we extend the project’s principles of \emph{transparency, reproducibility, and modular reuse} to energy measurement. 
+
+
+Concretely, we (i) catalog the ecosystem of whole-system suites, node-level telemetry collectors, and carbon-accounting libraries (Table~\ref{tab:hpc_energy_catalog}); (ii) align them with two pivotal metrics—efficiency (\textbf{GFLOPS\,/\,W}) and climate impact (\(\text{kg\,CO}_{2}\text{e}\,/\text{job}\)); and (iii) distil a lightweight \emph{energy-carpentry kit}: a 1 Hz power-trace format, a FAIR JSON metadata schema, and a low-cost wall-plug calibration recipe. 
+
+%% URL to replication package
+
+Dropped into any benchmark harness, the kit lets laboratories of every scale publish auditable energy and carbon numbers alongside conventional accuracy and latency scores—advancing both performance \emph{and} environmental stewardship.
+
+\TODO{there is no refernce for the harness where is it on github? link does not work \url{https://github.com/MLC-SWG/energy-carpentry-kit}}
+%----------------------------------------------------------------------
+\subsection{From ``How Fast?'' to ``How Fast per Joule—\textit{for everyone}?''}
+\label{sec:energy:bg}
+
+\textit{Why it matters for carpentry.}  
+
+Without a shared, low-cost way to record energy, only well-funded centers can reproduce leaderboard claims; standardizing the metric set is therefore the first step toward democratizing AI energy benchmarks. 
+
+\TODO{this is not the issue. The issue is that these solutions exist, but existing center policies prevent access to the data or it is costly to implement and therefor enot provided.}
+
+Leaderboards such as \textbf{Green500} (GFLOPS/W) and the \textbf{MLPerf Power} track (J/sample) already influence processor road-maps and procurement calls~\cite{Scogland11Green500,Tschand24MLPerfPower}. Chip-level DVFS or mixed precision can trade \(2\!-\!3\times\) runtime for up to \(10\times\) lower energy
+\cite{Peon23A100PowerCap}, while a \(\pm10\)\,¢ kWh\(^{-1}\) swing can flip
+the ROI between air and liquid cooling~\cite{Koomey21HyperscaleCost}.
+
+Hence, the practical research question is no longer merely ``How fast?,'' but ``How fast \emph{per joule} and \emph{per kg CO\(_2\)e}—on hardware I can actually afford to test?''
+
+\TODO{that is in my view to restricted, the question is still how fast can i get and is i many cases most important the issues is that it may to cost prohibitive for a center to do certain calculations, but the center has for sure been provisioned with maximum power usage in mind. SO one could ask does it realy matter if we look at energy that way as the powerbill for the center is paid. Just gregors naiive thought. need to think about this more.}
+
+%----------------------------------------------------------------------
+\subsubsection*{\textbf{Energy-Aware Benchmarks and Tooling Landscape}}
+
+\textit{Why it matters for carpentry.}  The tools below form the plug-and-play modules encapsulated in the energy-carpentry kit; benchmark authors can mix-and-match them while keeping a standard 1 Hz JSON trace.
+
+\TODO{ we should just make a table about this as we did before and use a general sentence many toolkits are avaloable but may not commonly be used. the carpentry efford should provide educational material to allow the users to chose the once most suitable for the researchers task/objective}
+
+\TODO{ how does this list relate the the next table? I see naiively many listed in the table, so why do we need another list that almost looks like a table? 
+Why is the information such as 
+{\em Whole-system benchmark suites., Instrumentation frameworks., Mini-apps and carbon wrappers.} not in the table in some form maybe with a column (yes/no)? or as part of the first column wit h  additional letters?
+}
+
+\TODO{we could have under the tabular within the table a more detailed explanation of these letters and remove much of the duplicated and space consuming itemized lists? while at the same time complete the table?}
+
+
+Gregor: \TODO{this is not just scale its a mix of scale and applicability, therefore its difficult to describe, maybe this should be multiple dimensions in some form. Not yet sure.
+}
+
+When developing carpentry and democratization efforts we need to consider the scale on which such efforts are applied.
+We consider the following layers that adrress different scales:
+
+\begin{itemize}
+\item Whole-system benchmark suites. \TODO{def missing}
+\item Instrumentation frameworks. \TODO{def missing}
+\item Mini-apps and carbon wrappers. \TODO{def missing}
+\end{itemize}
+
+\TODO{not sure what miniapps mean, but we also have APIs, and command tools and services that may have to be integrated in some fashion ....}
+
+\TODO{with the new item list the next can be simplified significantly and we just do citations and do not list them by name?}
+
+\paragraph{Whole-system benchmark suites.}
+
+\TODO{What is a whole system benchmark suite?}
+
+\emph{One scalar per machine}—ideal for non-experts and procurement:
+\textsc{SPECpower\_ssj2008}, \textsc{SERT2}, \textsc{TPC-Energy}, \textsc{JouleSort}, \textsc{Green500}, \textsc{HPCG-Power}, \textsc{HPL-MxP}, \textsc{MLPerf Power}, and \textsc{MLPerf Tiny}.
+Their scores appear in vendor brochures, ENERGY-STAR dossiers, and EU Lot 9 conformity reports~\cite{EU_Lot9_Guidance}. %% EU2019_424,
+
+\paragraph{Instrumentation frameworks.}
+\TODO{What is an instrumentation framework}
+
+Calibrated telemetry collectors—\textsc{SPEC PTDaemon}+RAPL/NVML, \textsc{Scaphandre}, \textsc{Kepler}, IBM \textsc{PowerAPI}, NVIDIA
+\textsc{DCGM Energy}, Intel \textsc{VTune Power}, Cray \textsc{PAT Energy}—provide the 1 Hz power traces that optimization research needs.
+
+\paragraph{Mini-apps and carbon wrappers.}
+\TODO{What are Mini-apps and carbon wrappers.}
+Power-augmented kernels (\textsc{LULESH-Power}, \textsc{CosmoFlow-Power}, \textsc{GROMACS-EE}, \dots) and wrappers (\textsc{CodeCarbon}, \textsc{CarbonTracker}) translate joules into kg CO\(_2\)e or cost, completing the silicon-to-sustainability loop.
+
+Together, these layers convert energy measurement from an in-house craft into a shareable component of an open AI benchmark, as advocated by this \emph{carpentry} paper.
+
+\input{table-energy}
+
+%----------------------------------------------------
+\subsection{Energy Metrics}
+\label{sec:energy-metrics}
+
+\TODO{Old title is a bit too complex and mixes layers with concrete metric names, thus we can not use: Metric Layers, Temperature, and DCiE}
+
+\TODO{Maybe we should say: As we can see form Table \ref{tab???} a plethora of energy related metrics exists. Software Carpentry and Democratizing efforts must educate users about them but also must possibly focus on the most useful or accepted once. Besides listing the actual energy used another important metric is the carbon emission. This is especially important is carbon emission as it has become world wide a measure for the impact on the environment. This motivates also many stakeholders to work towards zero carbon emission ... Think this over ...
+Other metrics such as temperature, ... may be intermediate measurements if energy or carbon emission may not be immediately available.
+}
+
+\textit{Why it matters for carpentry.}  
+\TODO{ i like the layer specific vs log but these are as you point out different things. SO one should look for what is measured and possibly establish the layer in a diagram and put the abstraction into it}
+Layer-specific metrics tell authors \emph{what to log} and reviewers \emph{how to compare} submissions that run on very different hardware. Device-level energy per flop or inference pinpoints micro-architectural hot-spots; job-level kWh and Energy–Delay Product drive power-cap schedulers; facility-level PUE and DCiE satisfy CSR reporting. Although temperature is not itself a KPI, inlet and outlet sensors are logged because thermal headroom bounds safe DVFS ranges.
+
+%------------------------------------------------------
+\subsection{From On-Chip Counters to Carbon APIs} %% Instrumentation: 
+\label{sec:energy:instr}
+
+\textit{Why it matters for carpentry.} By funneling RAPL, NVML, and PM\_COUNTER readings through a uniform 1 Hz JSON trace, the kit ensures that the power data looks the same on a laptop or an exascale node. On-chip counters deliver sub-second energy samples; for leaderboard runs, these are cross-checked with an external power analyzer driven by \textsc{SPEC PTDaemon}. Cluster collectors (\textsc{Scaphandre},
+IBM \textsc{PowerAPI}, NVIDIA \textsc{DCGM Energy}) stream calibrated data to Prometheus, and carbon wrappers (\textsc{CodeCarbon}, \textsc{CarbonTracker}) tag each joule with live grid-intensity kg CO\(_2\)e factors. Figure~\ref{fig:pipeline} shows the resulting
+acquire $\rightarrow$ normalize $\rightarrow$ KPI flow.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.22]{images/kpi.pdf}
+  \caption{Measurement workflow adopted by the energy-carpentry kit. Raw counter data are calibrated, normalized to J/kWh, converted to kg CO\(_2\)e via grid-intensity APIs, and aggregated into per-job KPIs. \TODO{this figure does not address the meter challang as the meters are on differnt levels. this seems to be here the application level not the center level. Also we have multiple meters ... the reason this seems incomplete is that on chip counter is on same level as external meter? Also we can plug in an external meter onto the CPU or GPU if we are real ambitious which I think has been done at SDSC. We do not need to mention this though ... as for this discussion to detailed. }}
+  \label{fig:pipeline}
+\end{figure}
+
+%----------------------------------------------------------------------
+\subsection{A Generalized Survey Framework}
+\label{sec:energy:survey}
+
+\textit{Why it matters for carpentry.}  
+This three-stage template lets any new benchmark publish FAIR, trace-backed energy data with minimal extra code.
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Acquisition} — log 1 Hz power from counters \emph{and} a calibrated wall-plug meter.
+  \item \textbf{Normalisation} — convert to J, kWh, kg CO\(_2\)e and derive GFLOPS/W, EDP, etc.
+  \item \textbf{Reporting} — bundle traces + metadata in the \texttt{EE-HPC-WG} JSON schema and archive under a DOI.
+\end{enumerate}
+
+%----------------------------------------------------------------------
+\subsection{Trade-offs and Scaling Limits}
+\label{sec:energy:tradeoffs}
+
+\textit{Why it matters for carpentry.}  
+The kit lets any lab replicate these studies and contribute points to the communal dashboard. Capping an A100 at 300 W saves 11\%  energy for a 1\% speed loss~\cite{nvidiadcgmenerg}; HPL-MxP more than doubles GFLOPS/W over FP64~\cite{hplmxphplai}; CosmoFlow energy/epoch flattens beyond 8,000 GPUs
+\cite{cosmoflow2019}. Figure~\ref{fig:tdp_scatter} contextualizes these results against historical CPU/GPU TDP trends.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{images/tdp_vs_cpu-gpu.pdf}
+  %\caption{Thermal-design power (TDP) and core/SM counts of flagship CPUs and GPUs, 2007–2025. Marker size~\(\propto\)TDP; color encodes parallel units. Linear fits show power budgets rising faster than on-chip parallelism.}
+  \caption{\TODO{move this figure after the table from ORNL. and say this is what happens in the community. There is a citation missing where the data comes from... or is it self made? is the thermal design power important as we also consider flops. so should it be power/flops? to normalize, if so would that not be smaller in principal.} Evolution of flagship CPU and GPU power envelopes (2007–2025). Marker size scales with thermal design power (TDP); color encodes the advertised number of cores/SMs. The diverging linear trends reveal that peak power is growing faster than on-chip parallelism—a widening gap that any reproducible energy benchmark must capture and normalize if results are to remain portable across hardware generations.}
+  \label{fig:tdp_scatter}
+\end{figure}
+
+%------------------------------------------------------
+\subsection{Datacenter Benchmarks in Practice}
+\label{sec:energy:dcbench}
+
+\textit{Why it matters for carpentry.}  
+Highlighting which suites dominate procurement reveals coverage gaps the community can fill with new, open benchmarks that reuse the kit. SPECpower/SERT target CPUs; TPC-Energy and JouleSort probe storage; Green500, HPCG-Power, and HPL-MxP rank full HPC systems; MLPerf Power adds AI accelerators. Combined, they span \SI{1}{\micro\watt} $\rightarrow$ \SI{1}{\mega\watt}, yet still under-sample graph and streaming workloads~\cite{Tschand24MLPerfPower}.
+
+%------------------------------------------------------
+\subsection{Economic and Environmental Stakes}
+\label{sec:energy:econenv}
+
+\TODO{ this information should probably be moed to the beginning and modified in some fashion as it is a motivation .}
+\textit{Why it matters for carpentry.}  
+Concrete cost-and-carbon examples motivate adoption: the data produced by the kit translate directly into budget and sustainability decisions.
+
+%\vspace{4pt}
+\noindent
+\textbf{Case 1 – Oak Ridge’s \emph{Frontier}.} %
+The Frontier exascale system draws
+\(24.6\;\text{MW}\) at LINPACK load and is housed in a data hall whose measured PUE is \(1.03\)\,\cite{DOE_Frontier_Power2023}. At the July 2025 U.S.\ industrial tariff of
+\$0.081 kWh\(^{-1}\)\,\cite{EIA_Electricity_Price_2025} the annual electricity bill is: $24.6\;\text{MW}\times 8\,760\;\text{h\,yr}^{-1}\times\$0.081
+  \;\approx\;\$17.5\,\text{M}/\text{yr}.$  The Tennessee Valley Authority reported a residual grid intensity of
+\(360\;\text{g\,CO}_{2}\text{e\,kWh}^{-1}\) for 2024\footnote{TVA
+Sustainability Report (2025), \url{https://tva.com/environment/environmental-stewardship/sustainability}.} so Frontier emits
+\(\sim\!78\;\text{kt\,CO}_{2}\text{e\,yr}^{-1}\), equivalent to the
+territorial footprint of \(\sim\!12\,000\) EU residents
+(Eurostat 2024, 6.5 t cap\(^{-1}\))\,\cite{Eurostat_GHG_2024}.
+
+%\vspace{4pt}
+\noindent
+\textbf{Case 2 – Google hyperscale fleet.} %
+Google’s 2023 environmental report lists a \emph{fleet-wide} PUE of
+\(\mathbf{1.10}\) (industry mean 1.58)\,\cite{Google_PUE_2023} yet company-wide GHG emissions still rose to
+\(14.3\;\text{Mt\,CO}_{2}\text{e}\) in 2023, up 49 \% since
+2019\,\cite{Google_Sustainability_2024}.   % <5>
+Internal modeling shows that deferring non-urgent ML jobs to periods of
+low grid-carbon intensity cuts emissions by 10–20 \%; Google plans to
+combine that policy with a 115 MW geothermal PPA coming online in Nevada
+in 2026\,\cite{Google_Geothermal_2023}.   % <6>
+
+%\vspace{4pt}
+\noindent
+\textbf{Software levers are already effective.}
+Two independent field trials confirm double-digit abatements:
+
+\begin{itemize}
+  \item \emph{S.C.A.L.E} for OpenShift at ING Bank reduced cluster-level CO\(_2\)e by 20 \% across 300 nodes while meeting SLA deadlines
+       ~\cite{ING_SCALE_2024}.   % <7>
+  \item The \emph{GREEN} plug-in for Slurm achieved an 18 \% reduction on a 512-GPU testbed with \(<\!3\)\,\% throughput penalty
+       ~\cite{GREEN_Slurm_2025}.   % <8>
+\end{itemize}
+
+\noindent
+\emph{Implication.} At present, U.S.\ prices every megawatt of IT load costs roughly \$0.7 M yr\(^{-1}\); a 15 \% carbon-aware shift therefore saves six figures annually—before any carbon price is applied. As Frontier approaches 30 MW and commercial AI clouds exceed 100 MW,
+optimizing \emph{\$per joule} and \emph{kg CO\(_2\)e per job} is no longer optional; it is as material as FLOPS-per-joule.
+
+%%------------------------------------------------------
+\subsection{Next Steps: From Point Results to FAIR Energy Data}
+\label{sec:energy:agenda}
+
+\textit{Why it matters for carpentry.}  
+These recommendations turn isolated measurements into a living,
+community resource—mirroring the paper’s call for dynamic, open
+benchmarks.
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Maintain sensor accuracy \(\le3\)\,\%.} Calibrate against
+        a traceable meter before every campaign; publish offsets.
+  \item \textbf{Release the trace, not just the point.} Archive 1 Hz
+        power data + metadata under a DOI in the EE-HPC-WG JSON format.
+  \item \textbf{Broaden workload coverage.} Extend suites to graph,
+        streaming, and quantum kernels so 2025 optimizations remain
+        valid in 2030.
+  \item \textbf{Community dashboard.} A public leaderboard plotting
+        GFLOPS/W vs kg CO\(_2\)e/step will let users rank systems,
+        providers showcase progress, and regulators audit compliance.
+\end{enumerate}
+
+Treating energy and carbon as first-class results—and making the
+supporting data openly accessible—ensures that the next wave of HPC-AI
+breakthroughs is not only \emph{fast} but demonstrably \emph{sustainable}.

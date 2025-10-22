@@ -1,0 +1,149 @@
+% -----------------------------------------------------
+% Encoding & Fonts
+% -----------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage{microtype}
+
+% -----------------------------------------------------
+% Math & Symbols
+% -----------------------------------------------------
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm} % Bold math
+\usepackage{siunitx}
+\sisetup{per-mode=symbol}
+\DeclareSIUnit{\COtwoe}{\ensuremath{\mathrm{CO_2e}}}
+\DeclareSIUnit{\gCOtwoe}{\ensuremath{\text{g\,CO_{2e}}}}
+\DeclareSIUnit{\cent}{\text{\textcent}}
+
+% -----------------------------------------------------
+% Tables
+% -----------------------------------------------------
+\usepackage{pdflscape}   %% 
+\usepackage{booktabs}    % Professional tables
+\usepackage{tabularx}    % Flexible width tables
+\usepackage{array}       % Extended table formatting
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{makecell}
+
+
+% -----------------------------------------------------
+% Listings & Code
+% -----------------------------------------------------
+\usepackage{listings}
+\usepackage{xcolor}
+\lstdefinestyle{pystyle}{
+  language      = Python,
+  basicstyle    = \ttfamily\small,
+  keywordstyle  = \color{blue!70!black}\bfseries,
+  commentstyle  = \color{green!50!black},
+  stringstyle   = \color{orange!70!black},
+  numbers       = left,
+  numberstyle   = \tiny,
+  numbersep     = 6pt,
+  frame         = single,
+  rulecolor     = \color{black!40},
+  tabsize       = 4,
+  showstringspaces = false,
+  captionpos    = b
+}
+
+% -----------------------------------------------------
+% Lists & Custom Enums
+% -----------------------------------------------------
+\usepackage{enumitem}
+\newlist{goal}{enumerate}{1}
+\setlist[goal,1]{label=\textbf{G\arabic*},leftmargin=1.8em,align=left}
+
+% -----------------------------------------------------
+% Graphics, TikZ & Diagrams
+% -----------------------------------------------------
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shadows,trees,mindmap}
+\usepackage{forest}
+\usepackage{smartdiagram}
+\usepackage[framemethod=tikz]{mdframed}
+
+% Forest tree style
+\forestset{
+  skan tree/.style={
+    for tree={
+      drop shadow,
+      text width=3cm,
+      grow'=0,
+      rounded corners,
+      draw,
+      top color=white,
+      bottom color=blue!20,
+      edge={Latex-},
+      child anchor=parent,
+      anchor=parent,
+      tier/.wrap pgfmath arg={tier ##1}{level()},
+      s sep+=2.5pt,
+      l sep+=2.5pt,
+      edge path'={
+        (.child anchor) -- ++(-10pt,0) -- (!u.parent anchor)
+      },
+      node options={ align=center },
+    },
+    before typesetting nodes={
+      for tree={
+        content/.wrap value={\strut ##1},
+      },
+    },
+  },
+}
+
+% -----------------------------------------------------
+% Hyperlinks & URLs
+% -----------------------------------------------------
+\usepackage{hyperref}
+\usepackage{url}
+\renewcommand{\UrlFont}{\footnotesize}
+
+% -----------------------------------------------------
+% Miscellaneous
+% -----------------------------------------------------
+\usepackage{comment}
+\usepackage{stfloats}     % For positioning floats at bottom
+\usepackage{adjustbox}    % For scalable content
+\usepackage{todonotes}    % For todo notes
+
+% -----------------------------------------------------
+% Custom Commands
+% -----------------------------------------------------
+\newcommand{\sysfs}{\texttt{/sys/class/powercap}\xspace}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\textscit}[1]{\text{\scshape\itshape#1}}
+\newcommand{\ngreen}{bottom color=green!20}
+\newcommand{\ngrey}{bottom color=gray!20}
+\newcommand{\nred}{bottom color=red!20}
+\newcommand{\nwhite}{bottom color=white!20}
+\newcommand{\TODO}[1]{\todo[inline]{#1}}
+\newcommand{\GVL}[1]{{\color{blue} #1}}
+\newcommand{\REPLACE}[2]{{\color{red}\it #1} \begin{quote}{\color{blue}#2}\end{quote}}
+\newcommand{\YES}{\ding{51}}
+\newcommand{\NO}{$\times$}
+%\newcommand{\FILE}[1]{\parindent 0pt\textcolor{blue}{File: #1}}
+\definecolor{lightblue}{rgb}{0.7,0.85,1.0}
+
+\newcommand{\FILE}[1]{%
+  \parindent0pt%
+  \todo[inline,backgroundcolor=lightblue!60]{File: #1}%
+}
+
+% Define \FINPUT macro: prints filename via \FILE, then inputs the file
+\newcommand{\FINPUT}[1]{%
+  \FILE{#1}%
+  
+  \input{#1}%
+}
+% Optional if needed:
+% \usepackage{float}       % If you need [H] positioning
+
+% THIS IS A BUG REMOVE THE UNICODE 
+\DeclareUnicodeCharacter{2082}{\textsubscript{2}}

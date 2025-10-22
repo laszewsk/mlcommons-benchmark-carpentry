@@ -1,0 +1,362 @@
+\section{Existing AI Benchmarks}
+\label{sec:benchmarks}
+
+\TODO{
+
+
+As part of this we have seen a focus on the creation of machine learning focused benchmarks. According to ChatGPT such benchmarks evaluate ML models, systems, and hardware while using standardized tests and metrics, allowing researchers and engineers to assess performance accurately, compare across models or platforms, and identify areas for improvement.
+
+}
+
+\TODO{
+Moved: Most recently, we have seen a number of benchmarking efforts arise that focus on AI-specific tasks. When asking ChatGPT this includes  (a) HPC AI500\TODO{\cite{???}} / HPC AI500 v2\TODO{\cite{???}}: which measures deep learning tasks (e.g. ResNet, Faster RCNN) at scale, focusing on both accuracy and throughput \cite{milabench,www-aibench} (b) MLPerf HPC, which evaluates scientific ML on HPC, measuring memory, I/O, compute, and communication interplay \cite{mlperf}. This even includes community-based benchmarks that address scientific problems bounty incentivized to provide the most accurate solution for a particular problem, such as popularized by Kaggle. \cite{www-kaggle}
+
+}
+
+It is interesting to analyze related work being done in this area, so we queried arXiv~\cite{www-arXiv} and Google Scholar~\cite{www-google-scholar}. Note that Google Scholar does not include all entries from arXiv, but it does include most of them.
+As of Oct 1, 2025, we find 106 entries on arXiv when searching for the topic {\em ``AI benchmark''}.
+When searching for {\em ``AI and benchmark''}, we find 5,128 entries. Executing the same queries in Google Scholar yields 2,490 entries for {\em ``AI benchmark''} and
+2.79 million entries for {\em ``AI and benchmark''}.
+We have not yet conducted a deep analysis of this data to categorize the entries or to identify why Google Scholar returns 2.79 million results when both terms are used in conjunction.
+It is evident from this that a complete survey is difficult to achieve through manual inspection. In an upcoming effort, we plan to explore how to automatically categorize these entries using LLMs.
+To initiate this effort, we issued queries to ChatGPT and obtained an initial list of benchmarks, as shown in Table \ref{tab:scientific_ai_benchmarks}. In addition, we identified several benchmarks based on the interests of members of the MLCommons Science and HPC Working Groups. This includes a categorization of MLCommons benchmarks according to working group interests. \TODO{This has to be updated}
+
+A selected number of these benchmarks, which we reviewed manually, are summarized in more detail on our website at~\cite{www-mlcommons-benchmarks}. A report is currently in preparation at~\cite{www-mlcommons-science-benchmarks-paper}. \TODO{Ben: Gregor will discuss with Ben how we get a one page summary of this with pointer to larger body of work}
+
+\begin{table*}[!ht]
+\caption{Scientific AI Benchmarks as found by ChatGPT 4.0 \TODO{evaluate and fix citations, write section about them. Update this table as by now ChatGPT has been updated and may result in mor entries. However these are the entries we used on the Web page.}}
+\label{tab:scientific_ai_benchmarks}
+
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|p{0.12\textwidth}p{0.02\textwidth}|p{0.10\textwidth}|p{0.15\textwidth}|p{0.13\textwidth}|p{0.18\textwidth}|p{0.17\textwidth}|}
+\hline
+\textbf{Benchmark} &  & \textbf{Scientific Domain} & \textbf{Focus} & \textbf{Task Types} & \textbf{AI Capability Measured} & \textbf{Notable Models Evaluated} \\
+\hline
+\hline
+PDEBench &~\cite{takamoto2022pdebench} & Physics / Engineering & Solving Partial Differential Equations & Time-series simulation, regression & Physics modeling, operator learning & PINNs, FNO, DeepONet \\
+\hline
+LAB-Bench &~\cite{laurent2024labbench} & Biology / Life Sciences & Laboratory research assistance & Multiple choice, planning, analysis & Scientific reasoning, experiment planning & GPT-4, Claude, Gemini, etc. \\
+\hline
+SciEval &~\cite{suneval2024} & General Science (multi-domain) & Scientific research understanding & QA, reasoning, synthesis & Recall, reasoning, synthesis, analysis & GPT-4, Claude, Mixtral \\
+\hline
+SciSafeEval &~\cite{li2024scisafeeval} & Chemistry, Biology, Physics, Medicine & Scientific safety alignment & QA, reasoning, synthesis, prediction & Safety alignment, refusal awareness, adversarial robustness & GPT-4o, Claude, QWen, LLaMa \\
+\hline
+CORE-Bench &~\cite{siegel2024corebench} & General (CS, Social Sci, Medicine) & Computational reproducibility & Execution, interpretation, synthesis & Reproducibility, multi-modal understanding & GPT-4V, Claude, OpenAI Agents \\
+\hline
+Galactica Eval &~\cite{taylor2022galactica} & General Science & Scientific writing \& knowledge recall & QA, document generation & Scientific knowledge representation & Galactica, GPT, T5, BERT \\
+\hline
+Hendrycks Science QA &~\cite{hendrycks2021measuring} & Physics, Chemistry, Biology & High-school level scientific QA & Multiple choice QA & Factual and conceptual understanding & GPT-3, GPT-4, PaLM \\
+\hline
+ARC &~\cite{clark2018arc} & General Science (K–12) & Commonsense + Science QA & Multiple choice QA & Reasoning, reading comprehension & GPT, T5, UnifiedQA \\
+\hline
+AristoBench &~\cite{clark2016combining} & Science (elementary–high school) & Natural science exams (NY Regents) & Multiple choice QA & Domain-specific factual recall & Aristo, GPT-3, RoBERTa \\
+\hline
+SCIQ &~\cite{welbl2017crowdsourcing} & Science (school-level) & Sentence-level inference & MCQ, sentence completion & Language understanding in science context & GPT-3, T5, BERT \\
+\hline
+BioASQ &~\cite{krithara2023bioasq} & Biomedical / Life Sciences & Biomedical question answering & Factoid, list, yes/no, documents & Domain-specific retrieval and understanding & BioBERT, PubMedGPT, GPT-4 \\
+\hline
+MedQA (USMLE) &~\cite{jin2021disease} & Medicine & US medical licensing exam QA & Multiple choice, long-form QA & Clinical reasoning, medical knowledge & GPT-4, PaLM, Med-PaLM \\
+\hline
+MMLU (Science subset) &~\cite{hendrycks2021measuring} & General Science, Math & Academic knowledge & Multiple choice & Cross-domain reasoning and recall & GPT-4, Claude, LLaMA, Gemini \\
+\hline
+\end{tabular}%
+e}
+\end{table*}
+
+\input{table-ai}
+
+\begin{comment}
+scimlbench
+please add others
+Geoffrey pointed many out but i did not have time to write them down
+
+adaptive scale of benchmarks
+    x single server
+    y single gpu
+    run on multiple x and y
+
+impact of network
+impact of multiuser
+
+This is translated with Claude via AI from the image:
+
+Screenshot 20250520 at 8.35.23 PM.png
+given can you convert the table to a latex table
+
+I'd be happy to convert this table to LaTeX format. Here's the complete LaTeX code for the table:
+
+\end{comment}
+
+ML Benchmarks LaTeX Table \ref{tab:ml_benchmarks}
+
+\begin{table*}[htbp]
+\centering
+\caption{Machine Learning Benchmarks Across Various Domains \TODO{citations missing}}
+\label{tab:ml_benchmarks}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|ll|l||l|l|}
+\hline
+\textbf{Benchmark} & & \textbf{Domain} & \textbf{ML motif} & \textbf{Computing motif} \\
+\hline
+\hline
+jet classification & & HEP/NP & Classification & Embedded \\
+\hline
+qubit readout & & QIS & Classification, Time-series & Embedded \\
+\hline
+supernova pointing & & HEP/NP & Regression & Edge Inference \\
+\hline
+quench detection & & HEP/NP & Classification, Time-series & Embedded, Edge Inference \\
+\hline
+BraggNN & & Mat Sci & Regression & Embedded \\
+\hline
+PtychoNN & & Mat Sci & Regression & Embedded, Edge Inference \\
+\hline
+smart pixels & & HEP/NP & Classification & Embedded \\
+\hline
+ECON autoencoder & & HEP/NP & Compression & Embedded \\
+\hline
+MHD regression & & Fusion & Regression & Embedded \\
+\hline
+Calo challenge & & HEP/NP & Generative & HPC training, Inference \\
+\hline
+TPBench & & HEP/NP & LLM & HPC training, Inference \\
+\hline
+Diffuse Multiple Scattering & & Mat Sci & Classification, Computer Vision & Inference \\
+\hline
+Cloud Masking & & Bio/Env Sci & Semantic Segmentation, Computer Vision & Inference \\
+\hline
+Electron Microscopy Denoising & & Mat Sci & Computer Vision, Regression & Inference \\
+\hline
+CosmoFlow & & HEP/NP & Computer Vision, Inverse & HPC training, Inference \\
+\hline
+Deep CAM & & Bio/Env Sci & Semantic Segmentation, Computer Vision & HPC training, Inference \\
+\hline
+Earthquake forecasting & & Bio/Env Sci & Regression, Time-series & Inference \\
+\hline
+STEM DL & & Mat Sci & Classification, Computer Vision & Inference \\
+\hline
+Uno & & Medical & Regression & Inference \\
+\hline
+PDE Bench & & Math & PINNs & Inference \\
+\hline
+The Well & & Math & PINNs & Inference \\
+\hline
+EAIRA Astro & & HEP/NP & LLM & Inference \\
+\hline
+EAIRA Molecule & & Mat Sci & LLM & Inference \\
+\hline
+HDR Anomaly Challenge GW & & HEP/NP & Anomaly Detection & Inference \\
+\hline
+HDR Anomaly Challenge Butterfly & & Bio/Env Sci & Anomaly Detection & Inference \\
+\hline
+HDR Anomaly Challenge Sea level & & Bio/Env Sci & Anomaly Detection & Inference \\
+\hline
+\end{tabular}
+}
+\end{table*}
+
+\subsection{MLCommons}
+\label{subsec:benchmarks-mlcommons}
+
+\TODO{Need volunteer that completes a summary about MLCommons and Table~\ref{tab:mlcommons-benchmarks}}
+
+\TODO{describe what MLCommons is and how it is beneficial for this effort}
+
+\begin{table*}[htb]
+\caption{MLCommons Benchmark Overview. \TODO{improve this table.}}
+\label{tab:mlcommons-benchmarks}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|p{0.15\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.2\textwidth}|p{0.3\textwidth}|}
+\hline
+\textbf{MLPerf Benchmark Name} & \textbf{Task Type} & \textbf{Application Area} & \textbf{Model Types} & \textbf{Metrics} & \textbf{Supported Platforms} & \textbf{Benchmark Features} \\
+\hline
+\hline
+Training & Training (AI models) & AI research, deep learning & CNNs, RNNs, Transformers, etc. & Throughput (samples/sec), Latency (ms) & GPUs (NVIDIA, AMD), TPUs, CPUs, Custom accelerators & Measures training performance for deep learning models \\
+\hline
+Inference & Inference (AI models) & AI, machine learning, real-time inference & CNNs, Transformers, BERT, etc. & Throughput (samples/sec), Latency (ms) & GPUs (NVIDIA, AMD), TPUs, CPUs, edge devices & Focuses on real-time inference for vision, NLP, etc. \\
+\hline
+Tiny & Inference (Edge devices) & Edge AI, IoT & CNNs, Transformers, DNNs & Throughput (samples/sec), Latency (ms) & Edge devices (Raspberry Pi, mobile devices, etc.) & Inference on low-power devices, small models \\
+\hline
+HPC & High-Performance Computing & Scientific computing, AI, supercomputing & DNNs, RNNs, HPC workloads & Time-to-solution, Throughput (samples/sec) & Supercomputers, HPC clusters & High-performance computing with AI applications \\
+\hline
+Supercomputing/HPC & Training (AI models) & AI, supercomputing & Large-scale DNNs, GPT, etc. & Throughput, Time-to-solution & Supercomputers, multi-node setups & Large-scale training with distributed computing \\
+\hline
+Vision & Inference (Computer Vision) & Computer vision, autonomous driving, surveillance & CNNs, YOLO, ResNet & Throughput (fps), Latency (ms) & GPUs, TPUs, CPUs, edge devices & Focus on visual processing and autonomous systems \\
+\hline
+Natural Language Processing (NLP) & Inference (Text processing) & Natural Language Processing, AI chatbots & Transformers, BERT, GPT & Throughput (samples/sec), Latency (ms) & GPUs, TPUs, CPUs, mobile devices & NLP-focused models like BERT, GPT, etc. \\
+\hline
+Audio & Inference (Audio processing) & Speech recognition, Audio processing & RNNs, CNNs, Transformers & Latency (ms), Throughput & GPUs, TPUs, CPUs, mobile devices & Optimized for speech and audio processing \\
+\hline
+Data-Centric & Training (AI models) & Data-driven AI tasks & CNNs, RNNs, Transformers, etc. & Time-to-solution, Accuracy, Throughput & GPUs (NVIDIA, AMD), TPUs, custom accelerators & Focus on data-centric machine learning tasks \\
+\hline
+OpenAI & Training (AI models) & OpenAI-style generative models & GPT, BERT, Transformer-based models & Training speed, Time-to-solution & GPUs (NVIDIA), TPUs, CPUs & Focus on OpenAI-style models like GPT and BERT \\
+\hline
+\TODO{Science} & Scientific application accuracy & Eartchquake, Cloudmask, others & Time series, ??? & Scientific accuraccy & Supported platforms & depends on application (NVIDIA, AMD) \\
+\hline
+\end{tabular}
+}
+\end{table*}
+
+\subsubsection{Benchmarking and in different programming languages}
+\label{subsubsec:benchmarks-mlcommons-langs}
+
+\TODO{
+
+Victor could lead:
+
+As you are interested in language and AI benchmark
+
+we may want to add one column or less on  programming language impact
+
+This must include academic references in bibtex format.
+
+ 
+Please provide summary 
+
+On comparing AI efforts in different programming languages and their impact on benchmarks.
+
+Also identify if the use of highly optimized libraries from vendors have an impact when used in different langauges.
+
+}
+
+\TODO{Describe how different languages need to be addressed. Analyze the benchmark review and find out in which languages they are done. Add that in the table.}
+
+Python
+C
+Java
+Zero-cost abstractions in C++
+Julia
+
+Overhead cost discussion
+
+    stopwatch 
+    microtimers
+
+\subsubsection{Logging}
+\label{subsubsec:benchmarks-mlcommons-logging}
+
+\TODO{describe what logging tools exists for benchmarking}
+
+MLLog
+StopWatch
+logfiles
+
+\subsubsection{Benchmarking on Desktops}
+\label{subsubsec:benchmarks-mlcommons-desktop}
+
+\TODO{ Describe why we not only need HPC benchmarks}
+
+baremetal
+containers
+
+\subsubsection{Benchmarking on HPC machines}
+\label{subsubsec:benchmarks-mlcommons-hpc}
+
+\TODO{describe why HPC benchmarks are important and why they are difficult. Describe replication need.}
+
+baremetal
+containers
+Communication: latency, bandwidth, cross-section b/w
+Storage: parallel file systems, pre-load buffers and NVMe, no-storage nodes
+
+\subsection{Existing Monitoring Tools in DL and AI}
+\label{subsec:benchmarks-monitor}
+
+Logs can be analyzed by streaming SQL engine (e.g., KSQL or Flink SQL) or batch process (e.g., Spark, Hadoop or Hive cluster).
+Tensorboard can visualize metrics on TensorFlow, Jax or PyTorch.
+
+What is in TensorFlow? tensor board ...
+
+PyTorch
+
+Alongside active development, the PyTorch team has developed several state of the art monitoring and profiling systems.
+The most prominent is the PyTorch Profiles which provides detailed performance metrics, GPU utilization tracking and operator efficiency. It also integrates with TensorBoard for model training and visualization.
+There is also the torch.monitor module, that provides a better system logging infrastructure to understand model diagnostics.
+
+There are also paired tools that involve both diagnostics and debugging. Cockpit~\cite{DBLP:journals/corr/abs-2102-06604}, provides real-time monitoring of gradient distributions and curvature, aiding in hyperparameter tuning.
+All of these tools come equipped with native benchmarking through TorchBench~\cite{zhao2024deepcontextcontextawarecrossplatformcrossframework}. 
+There is also the torch-analyzer for layer-wise runtime and memory mapping statistics.
+Holistic profiling solutions have also been developed.
+DeepContext links program contexts across execution levels to provide fine-grained performance insights~\cite{zhao2024deepcontextcontextawarecrossplatformcrossframework}.
+
+{happy to keep adding more details on visualizations and evaluations for tf and torch. If not one has claimed it - KM}
+
+others
+
+what many experiment monitoring tools exist, i remember that some companies possibly open source tools offer the collection of multiple results so they can be compared to find best models. Which are they?
+    
+\subsection{HPC Benchmarking}
+\label{subsec:benchmarks-hpc}
+
+\TODO{Piotr}
+
+\subsubsection{TOP500}
+\label{subsec:benchmarks-hpc-top500}
+
+The list of world's largest supercomputers has been released biannually
+for nearly 4 decades now and thus offers a number of important lessons
+in designing benchmarks for longevity, should that ever be the goal of
+performance measurements. At the heart of the TOP500 scoring procedure to
+arrive at the ranked list of 500 supercomputing installations is the
+LINPACK benchmark~\cite{dongarra2003hpl}, which bears the name of the
+namesake software library~\cite{dongarra1979linpack} for
+solving systems of linear equations. This linear solver package was
+designed in the 1970s and implemented in FORTRAN. The user guide for the
+library was published in 1979 and had a list only 24
+computers~\cite{dongarra1979linpack}. The
+following decades brought in various aspects of scaling into the
+software, the list sizes, and the machines submitted for inclusion in the
+ranking as well as a variety of data and/or reporting information.
+
+\subsubsection{Green500}
+\label{subsec:benchmarks-hpc-green500}
+
+It is hard to underestimate the role that power and energy play in the
+modern HPC and distributed computing with the multi-mega-watt data
+centers and computing facilities abound in many locations across the
+globe. But the issues of excessive power draw and/or energy consumptions
+data back to the mid-2000s~\cite{feng2005pwrprofsciapps,
+cameron2005hpcpowerdistcompsciapps} culminating in a special working
+group of cross-industry members~\cite{specpower2008, specpower} and more
+importantly by combining the TOP500 ranking with the available power
+draw information from the supercomputers culminating in the ranking
+called Green500~\cite{feng2007green500}. It is published every since
+alongside the TOP500 ranking and it continues to underscore the
+importance of efficient use of energy at large HPC installations.
+
+\subsubsection{HPC innovation}
+\label{subsec:benchmarks-hpc-innov}
+
+requires monitoring of instantaneous power consumption (levels 1, 2, 3)
+
+\TODO{Piotr: mention something about floating-point and
+mixed-precision but I don't want to be taking it in case
+someone else already claimed it.}
+
+\subsection{Limitations}
+\label{subsec:benchmarks-limits}
+
+\TODO{Tianhao Li} 
+
+\subsubsection{Data Contamination}
+\label{subsec:benchmarks-limits-dataContam}
+
+Data contamination occurs when evaluation data overlaps with training data, inflating performance metrics and undermining the validity of benchmarks~\cite{xu2024benchmark}.
+This issue arises from the use of large-scale internet-derived corpora in LLM training, leading to unintentional exposure to benchmark data~\cite{xu2024benchmark}. Contamination can take various forms, including exact duplication, syntactic paraphrasing, and exposure to annotation guidelines~\cite{chen2025recent, sainz2023nlp}, resulting in misleading performance evaluations and distorted comparisons between models. While post-hoc detection methods, such as n-gram matching and masked input memorization, help identify contamination, they often fail due to the scale and opacity of pretraining data~\cite{chen2025recent, deng2023investigating, wu2024antileakbench}.
+Canary strings, unique, deliberately inserted markers, offer an additional layer of defense by enabling detection of specific data leakage during model training.
+By embedding these strings into the benchmark dataset, it becomes possible to track whether a model has memorized benchmark data, alerting researchers to potential contamination when the model generates these canary strings during evaluation~\cite{roberts2023data, ishida2025can}.
+Recent proposals for dynamic benchmarking aim to mitigate contamination by generating evaluation data after a model's training period, though challenges remain in standardizing these methods~\cite{chen2025recent, zhu2023dyval, zhu2024dyval, chen2025dynamic}.
+Addressing data contamination is crucial for ensuring the reliability and fairness of LLM evaluations.
+
+\subsubsection{Lack of Real-World Relevance}
+\label{subsec:benchmarks-limits-relev}
+
+Many widely used evaluations optimize for convenience—clean inputs, single-turn prompts, and static i.i.d.\ test sets—rather than the messy, constraint-laden settings in which models are actually deployed~\cite{liang2023holistic, kiela2021dynabench}.
+In production, inputs are noisy, multimodal, and multilingual; tasks are multi-step with tool use (retrieval, code, APIs) and human-in-the-loop escalation; operating conditions impose budgets (latency, compute, and dollar cost), compliance and privacy constraints, and reliability requirements under distribution shift (temporal, geographic, domain)~\cite{koh2021wilds, liang2023holistic}.
+Benchmarks that ignore these realities routinely overestimate model utility and under-measure risk~\cite{ribeiro2020beyond, kiela2021dynabench}.
+To restore ecological validity, benchmark carpentry should (\romannumeral1) start from ``task stories'' that specify user roles, context, constraints, and success criteria; (\romannumeral2) include end-to-end workflows that require planning, grounding, and tool integration—not just short answers—via interactive, execution-based tasks~\cite{majumdar2025redteamingaired, liu2024agentbench, miehling2025agenticaineedssystems, li2023api, xiong2025butterfly, xie2024osworld}; (\romannumeral3) pair quality metrics with operational ones (latency percentiles, cost per task, failure/abstention rates) and safety metrics (harmful content, data leakage, policy non-compliance)~\cite{gehman2020realtoxicityprompts}; and (\romannumeral4) stress-test robustness with shifted and ``messy'' inputs, long-tail slices, and adversarial/red-team cases~\cite{koh2021wilds, nie2020adversarial, zheng2025all}.
+In short, a benchmark should be a faithful proxy for the real job to be done—reflecting workflows, constraints, and risks—not merely a collection of decontextualized questions.
+
+\subsubsection{Reproducibility and Interpretability Challenges}
+\label{subsec:benchmarks-limits-reprod}

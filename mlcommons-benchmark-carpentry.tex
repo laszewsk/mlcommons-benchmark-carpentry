@@ -6,47 +6,54 @@
 \definecolor{lightgray}{gray}{0.9}
 \newcommand{\headerfont}{\fontsize{10pt}{12pt}\selectfont\bfseries}
 
+\usepackage{hyperref}
+
 \begin{document}
 
 \onecolumn
 \tableofcontents
+
 \twocolumn
+
 
 \title{AI Benchmarks Carpentry and Democratization}
 
-\FINPUT{000-authors}
+\input{0000-authors}
 
 \maketitle
 
-\FINPUT{001-abstract}
-\FINPUT{002-intro}
-\FINPUT{003-definitions}
-\FINPUT{004-formal}
-\FINPUT{005-benchmark-review}
-\FINPUT{006-review-gpu-benchmarks}
-\FINPUT{007-energy-benchmarks}
+\FINPUT{0010-abstract}
+\FINPUT{0020-intro}
+\FINPUT{0030-definitions}
+\FINPUT{0040-formal}
+\FINPUT{0050-benchmark-review}
+\FINPUT{0060-review-gpu-benchmarks}
+%\FINPUT{database}
+\FINPUT{0070-energy-benchmarks}
 %%% \FINPUT{008-gpu-info}
-\FINPUT{009-share}
-\FINPUT{010-profile}
-\FINPUT{011-sim}
+\FINPUT{0090-share}
+\FINPUT{0100-profile}
+\FINPUT{0110-sim}
+\FINPUT{0120-tune}
+\input{0400-carpentry}
+\FINPUT{0530-conclusion}
 
-
-\FINPUT{091-acknowledgments}
-\FINPUT{092-glossary}
-
-%%% \FINPUT{099-appendix}
+\FINPUT{0910-acknowledgments}
 
 \bibliographystyle{IEEEtran} 
 
 \bibliography{%
+ref-0-ontology,
 vonLaszewski-frontiers-citations,%
 ref-carpentry,%
-ref-sinclair, %
-ref-energy, %
-ref-hpcbench %
+ref-sinclair,%
+ref-energy,%
+ref-hpcbench,%
+ref-profile
 }
 \appendix
 
-\FINPUT{paper-abbrev}
+\FINPUT{0930-glossary}
+\FINPUT{0940-contribution}
 
 \end{document}

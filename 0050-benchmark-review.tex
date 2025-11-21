@@ -1,0 +1,177 @@
+\section{Review of Benchmark Related to this Effort}
+\label{sec:benchmarks}
+
+This section provides an overview of key benchmarking efforts that motivated our paper. We start with HPC benchmarks and also address MLCommons benchmark efforts. The lessons from these efforts motivated this paper as they identified the issues to foster efforts to democratize and introduce AI benchmark carpentry activities.
+
+\subsection{HPC Benchmarking}
+\label{sec:benchmarks-hpc}
+\label{sec:hpc}
+
+It is undeniable that HPC benchmarking has a great impact on the activities that we report here and we can learn a lot from these efforts. Some of the most known efforts are TOP500 and Green500.
+
+
+\subsubsection{TOP500}
+\label{sec:benchmarks-hpc-top500}
+
+The list of world's largest supercomputers has been released biannually
+for nearly 4 decades now and thus offers a number of important lessons
+in designing benchmarks for longevity, should that ever be the goal of
+performance measurements. At the heart of the TOP500 scoring procedure to
+arrive at the ranked list of 500 supercomputing installations is the
+LINPACK benchmark~\cite{dongarra2003hpl}, which bears the name of the
+namesake software library~\cite{dongarra1979linpack} for
+solving systems of linear equations. This linear solver package was
+designed in the 1970s and implemented in FORTRAN. The user guide for the
+library was published in 1979 and had a list only 24
+computers~\cite{dongarra1979linpack}. The
+following decades brought in various aspects of scaling into the
+software, the list sizes, and the machines submitted for inclusion in the
+ranking as well as a variety of data and/or reporting information.
+
+\subsubsection{Green500}
+\label{sec:benchmarks-hpc-green500}
+
+It is hard to underestimate the role that power and energy play in the
+modern HPC and distributed computing with the multi-mega-watt data
+centers and computing facilities abound in many locations across the
+globe. But the issues of excessive power draw and/or energy consumptions
+data back to the mid-2000s~\cite{feng2005pwrprofsciapps,
+cameron2005hpcpowerdistcompsciapps} culminating in a special working
+group of cross-industry members~\cite{specpower2008, specpower} and more
+importantly by combining the TOP500 ranking with the available power
+draw information from the supercomputers culminating in the ranking
+called Green500~\cite{feng2007green500}. It is published every since
+alongside the TOP500 ranking and it continues to underscore the
+importance of efficient use of energy at large HPC installations.
+
+\subsubsection{HPC innovation}
+\label{sec:benchmarks-hpc-innov}
+
+There a many innovations that this community brought us. Besides the recognition of development of tools and software to make the use of such complex system easier and foster democratization, we also see innovation on the integration of monitoring power consumptions on the various levels from the processor to the data center level. Utilizing different floating point precision can also have a great impact on the system performance due to architectural design impact. 
+Obviously the creation of a leaderboard has led to a better understanding of the system, but has also limits as not every algorithm scales in the same rate as projected by the leader-boards. Hence it is of advantage to have more benchmarks available to the scientists that more closely resembles the scientists tasks. In some cases it is also important to include the end to end performance that also addresses data storage limitations to be most transparent.
+
+
+
+\subsection{Machine Learning Benchmarks}
+\label{sec:ai-benchmakrs}
+\label{sec:benchmarks-mlcommons}
+
+Benchmarking in scientific machine learning (ML) has emerged as a critical area to guide algorithm development, enable fair comparisons towards progress and innovation, and facilitate reproducibility. The development of ML benchmarks for science is especially critical because of the multi-disciplinary nature of the development, often including domain experts, computing hardware developers, and ML researchers.  That, coupled with the variety of tasks and workloads, makes {\it high quality} benchmarking critical to making progress. 
+
+The current state of scientific benchmarking presents a challenge: the vast number and diversity of scientific workloads makes finding a well-defined, high-quality benchmark that targets a given domain a time consuming task. And for some stakeholders who are targeting a broader range of benchmarks, it is infeasible to run all of these benchmarks simply due to the sheer volume. To address this challenge, we introduce a definition and ontology of scientific machine learning benchmarks, where benchmarks are classified and mapped to their scientific domain and machine learning task type in~\cite{www-mlcommons-science-benchmarks-paper}. 
+
+New benchmarks are added through an open submission workflow overseen by the MLCommons Science Working Group. Each submission is evaluated against a six category rating rubric (Software Environment, Problem Specification, Dataset, Performance Metrics, Reference Solution, Documentation) that assigns an overall rating and potential endorsement. The six category scoring framework enables stakeholders, researchers, domain scientists, and hardware vendors to identify representative subsets of benchmarks that align with their specific priorities. The ontology supports adding new scientific domains, AI/ML motifs, and computing motifs as it expands, and we additionally illustrate an example method for automated computing workload classification based on power and utilization characteristics.   
+
+
+It is interesting to analyze related work being done in this area, so we queried arXiv~\cite{www-arXiv} and Google Scholar~\cite{www-google-scholar}. Note that Google Scholar does not include all entries from arXiv, but it does include most of them. As of Oct 1, 2025, we find 106 entries on arXiv when searching for the topic {\em ``AI benchmark''}.
+Executing the same queries in Google Scholar yields 2,490 entries for {\em ``AI benchmark''}. It is evident from this that a complete survey is difficult to achieve through manual inspection. In an upcoming effort, we plan to explore how to automatically categorize these entries using LLMs while implementing an agentic AI framework for it
+To initiate this effort, we issued queries to ChatGPT and obtained an initial list of benchmarks, as shown in Table \ref{tab:scientific_ai_benchmarks}. In addition, we identified several benchmarks based on the interests of members of the MLCommons Science and HPC Working Groups. This includes a categorization of MLCommons benchmarks according to working group interests.
+
+A selected number of these benchmarks, which we reviewed manually, are summarized in more detail on our website at \url{https://mlcommons-science.github.io/benchmark/}~\cite{www-mlcommons-benchmarks}. A report is currently in preparation at~\cite{www-mlcommons-science-benchmarks-paper}. \TODO{Ben: Gregor will discuss with Ben how we get a one page summary of this with pointer to larger body of work}. The work here is largely motivated by our experiences with MLCommons but can be generalized to other AI and Machine Learning Benchmarking efforts.
+
+MLCommons \cite{mlperf} provides one of the a comprehensive and a standardized ecosystems of AI benchmarks. It addresses training, inference, scientific computing, and domain-specific benchmarks. Most prominently is the MLPerf benchmark suite—covering datacenter, edge, mobile, and training workloads—establishes industry-wide baselines for performance, accuracy, power efficiency, and quality of service across diverse model classes such as computer vision, language, recommendation, speech, and reinforcement learning. Additionally, specialized evaluations including MLPerf Tiny for microcontroller-class devices, MLPerf Storage for I/O workloads, and MLPerf Science for large-scale scientific AI. Furthermore, MLCommons promotes the reproducibility through initiatives such as CROISSANT, a standardized metadata schema for datasets, and MLCube, a portable container-based model packaging standard. Additional domain-specific  working groups   in medical AI, multilingual speech, and responsible AI have recently expanded the targeted domains. 
+
+We have provided a comprehensive list of benchmarks as provided in Tables \ref{tab:benchmarks-mlcommons} and AILuminate Table \ref{tab:llm_benchmarks_long}.  The table contains information about the benchmark name, model, task, domain, model type, metrics, hardware, and a brief note. Through this we have provided a comprehensive overview of the MLCommons benchmark efforts that are not available elsewhere. The evaluations of the AIluminate benchmarks which include (a)  Safety / Jailbreak Tests, (b) LLM Safety Evaluation, (c)  Responsible AI / Alignment (d)  LLM (Decoder) (e)  Safety Rate, Toxicity Score (f) Cloud LLM APIs (g)  Evaluates robustness and alignment, can be found in detail on the MLCommons Web pages.
+
+As MLCommons provides such a rich set of benchmarks, it is important to document the impact on democratization and carpentry.
+
+
+
+\input{0055-table-mlcommons-5}
+
+%\input{0053-table-domains-3}
+%ML Benchmarks LaTeX Table \ref{tab:ml_benchmarks}
+
+
+%\input{ontology/selected}
+\input{ontology/selected-new}
+
+
+
+% \input{0056-x-table-mlcommons-6}
+
+\subsubsection{Logging}
+\label{sec:benchmarks-mlcommons-logging}
+
+\TODO{describe what logging tools exists for benchmarking}
+
+MLLog
+StopWatch
+logfiles
+
+\subsubsection{Benchmarking on Desktops}
+\label{sec:benchmarks-mlcommons-desktop}
+
+\TODO{ Describe why we not only need HPC benchmarks}
+
+baremetal
+containers
+
+\subsubsection{Benchmarking on HPC machines}
+\label{sec:benchmarks-mlcommons-hpc}
+
+\TODO{describe why HPC benchmarks are important and why they are difficult. Describe replication need.}
+
+baremetal
+containers
+Communication: latency, bandwidth, cross-section b/w
+Storage: parallel file systems, pre-load buffers and NVMe, no-storage nodes
+
+    
+\subsection{Limitations}
+\label{sec:benchmarks-limits}
+
+\TODO{Tianhao Li} 
+
+\subsubsection{Data Contamination}
+\label{sec:benchmarks-limits-dataContam}
+
+\TODO{ This section stand a bit on its own and may need to be integrated better}
+
+Data contamination occurs when evaluation data overlaps with training data, inflating performance metrics and undermining the validity of benchmarks~\cite{xu2024benchmark}.
+This issue arises from the use of large-scale internet-derived corpora in LLM training, leading to unintentional exposure to benchmark data~\cite{xu2024benchmark}. Contamination can take various forms, including exact duplication, syntactic paraphrasing, and exposure to annotation guidelines~\cite{chen2025recent, sainz2023nlp}, resulting in misleading performance evaluations and distorted comparisons between models. While post-hoc detection methods, such as n-gram matching and masked input memorization, help identify contamination, they often fail due to the scale and opacity of pretraining data~\cite{chen2025recent, deng2023investigating, wu2024antileakbench}.
+Canary strings, unique, deliberately inserted markers, offer an additional layer of defense by enabling detection of specific data leakage during model training.
+By embedding these strings into the benchmark dataset, it becomes possible to track whether a model has memorized benchmark data, alerting researchers to potential contamination when the model generates these canary strings during evaluation~\cite{roberts2023data, ishida2025can}.
+Recent proposals for dynamic benchmarking aim to mitigate contamination by generating evaluation data after a model's training period, though challenges remain in standardizing these methods~\cite{chen2025recent, zhu2023dyval, zhu2024dyval, chen2025dynamic}.
+Addressing data contamination is crucial for ensuring the reliability and fairness of LLM evaluations.
+
+\subsubsection{Lack of Real-World Relevance}
+\label{sec:benchmarks-limits-relev}
+
+Many widely used evaluations optimize for convenience—clean inputs, single-turn prompts, and static i.i.d.\ test sets—rather than the messy, constraint-laden settings in which models are actually deployed~\cite{liang2023holistic, kiela2021dynabench}.
+In production, inputs are noisy, multimodal, and multilingual; tasks are multi-step with tool use (retrieval, code, APIs) and human-in-the-loop escalation; operating conditions impose budgets (latency, compute, and dollar cost), compliance and privacy constraints, and reliability requirements under distribution shift (temporal, geographic, domain)~\cite{koh2021wilds, liang2023holistic}.
+Benchmarks that ignore these realities routinely overestimate model utility and under-measure risk~\cite{ribeiro2020beyond, kiela2021dynabench}.
+To restore ecological validity, benchmark carpentry should (\romannumeral1) start from ``task stories'' that specify user roles, context, constraints, and success criteria; (\romannumeral2) include end-to-end workflows that require planning, grounding, and tool integration—not just short answers—via interactive, execution-based tasks~\cite{majumdar2025redteamingaired, liu2024agentbench, miehling2025agenticaineedssystems, li2023api, xiong2025butterfly, xie2024osworld}; (\romannumeral3) pair quality metrics with operational ones (latency percentiles, cost per task, failure/abstention rates) and safety metrics (harmful content, data leakage, policy non-compliance)~\cite{gehman2020realtoxicityprompts}; and (\romannumeral4) stress-test robustness with shifted and ``messy'' inputs, long-tail slices, and adversarial/red-team cases~\cite{koh2021wilds, nie2020adversarial, zheng2025all}.
+In short, a benchmark should be a faithful proxy for the real job to be done—reflecting workflows, constraints, and risks—not merely a collection of decontextualized questions.
+
+\subsubsection{Reproducibility and Interpretability Challenges}
+\label{sec:benchmarks-limits-reprod}
+
+\TODO{TBD}
+
+
+\subsection{Existing Monitoring Tools in DL and AI}
+\label{sec:benchmarks-monitor}
+
+Logs can be analyzed by streaming SQL engine (e.g., KSQL or Flink SQL) or batch process (e.g., Spark, Hadoop or Hive cluster).
+Tensorboard can visualize metrics on TensorFlow, Jax or PyTorch.
+
+What is in TensorFlow? tensor board ...
+
+PyTorch
+
+Alongside active development, the PyTorch team has developed several state of the art monitoring and profiling systems.
+The most prominent is the PyTorch Profiles which provides detailed performance metrics, GPU utilization tracking and operator efficiency. It also integrates with TensorBoard for model training and visualization.
+There is also the torch.monitor module, that provides a better system logging infrastructure to understand model diagnostics.
+
+There are also paired tools that involve both diagnostics and debugging. Cockpit~\cite{DBLP:journals/corr/abs-2102-06604}, provides real-time monitoring of gradient distributions and curvature, aiding in hyperparameter tuning.
+All of these tools come equipped with native benchmarking through TorchBench~\cite{zhao2024deepcontextcontextawarecrossplatformcrossframework}. 
+There is also the torch-analyzer for layer-wise runtime and memory mapping statistics.
+Holistic profiling solutions have also been developed.
+DeepContext links program contexts across execution levels to provide fine-grained performance insights~\cite{zhao2024deepcontextcontextawarecrossplatformcrossframework}.
+
+{happy to keep adding more details on visualizations and evaluations for tf and torch. If not one has claimed it - KM}
+
+others
+
+what many experiment monitoring tools exist, i remember that some companies possibly open source tools offer the collection of multiple results so they can be compared to find best models. Which are they?

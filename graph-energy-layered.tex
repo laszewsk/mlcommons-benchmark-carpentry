@@ -1,5 +1,10 @@
+\newcommand{\mmB}{B}
+\newcommand{\mmT}{T}
+\newcommand{\mmJ}{$J_L$}
+\newcommand{\mmD}{$D_L$}
+\newcommand{\mmF}{$F_L$}
 
-\begin{figure}
+\begin{figure}[!ht]
 \begin{center}
 \resizebox{1.0\columnwidth}{!}{
 \begin{tikzpicture}[
@@ -10,10 +15,10 @@
     arrow/.style={-Latex, thick}
 ]
 
-% =========================================================================
+%==============================================================
 % Facility Layer (Top)
-% =========================================================================
-\node (facility_layer) at (0, 0) [layer] {\textbf{3. Facility/Data Center Layer}};
+%===============================================================
+\node (facility_layer) at (0, 0) [layer] {\textbf{3. Facility/Data Center Layer (\mmF)}};
 \node at (0, -0.7) {\footnotesize \emph{Focus: CSR Reporting, Infrastructure Management}};
 
 \node (pue) at (-4, -2) [metric] {\textbf{PUE} \\ (Power Usage Effectiveness)};
@@ -28,10 +33,10 @@
 \draw [arrow] (pue) -- (pue_eq);
 \draw [arrow] (dcie) -- (dcie_eq);
 
-% =========================================================================
+%===============================================================
 % Job Layer (Middle)
-% =========================================================================
-\node (job_layer) at (0, -6) [layer] {\textbf{2. Job/System Layer}};
+%===============================================================
+\node (job_layer) at (0, -6) [layer] {\textbf{2. Job/System Layer (\mmJ)}};
 \node at (0, -6.7) {\footnotesize \emph{Focus: Power-Cap Schedulers, System Optimization}};
 
 \node (kwh) at (-4, -8) [metric] {\textbf{kWh} \\ (Kilowatt-hour)};
@@ -44,14 +49,14 @@
 \draw [arrow] (split2) -- (edp);
 \draw [arrow] (edp) -- (edp_def);
 
-% =========================================================================
+%===============================================================
 % Device Layer (Bottom)
-% =========================================================================
-\node (device_layer) at (0, -12) [layer] {\textbf{1. Device/Micro-architectural Layer}};
+%===============================================================
+\node (device_layer) at (0, -12) [layer] {\textbf{1. Device/Micro-architectural Layer (\mmD)}};
 \node at (0, -12.7) {\footnotesize \emph{Focus: Micro-architectural Hot-spots, Hardware Limits}};
 
 \node (eperop) at (-4, -14) [metric] {\textbf{Energy per flop} or \\ \textbf{Energy per inference}};
-\node (temp) at (4, -14) [labelbox] {\textbf{Temperature Sensors} \\ (\emph{Non-KPI})};
+\node (temp) at (4, -13.7) [labelbox] {\textbf{Temperature~~Sensors~} (\emph{Non-KPI})~};
 
 \node (eperop_def) at (-4, -15.5) [box, text width=3.5cm, minimum height=1.2cm] {Energy per single \\ computational unit};
 
@@ -73,6 +78,6 @@
 \end{tikzpicture}
 }
 \end{center}
-\caption{Illustration of example for metrics as used in the layered system architecture used in large scale AI benchmarking.}
+\caption{Illustration of an example for metrics as used in the layered system architecture used in large-scale AI benchmarking.}
 \label{fig:energy-metric-layer}
 \end{figure}

@@ -2,21 +2,45 @@
 \IEEEoverridecommandlockouts % Enable funding footnote if needed
 \input{paper-format}
 
+\usepackage[
+    backend=biber,
+    bibstyle=ieee,
+    maxnames=30,
+    minnames=1,
+    maxcitenames=2,
+    mincitenames=1
+]{biblatex}
+
+
+\addbibresource{ref-0-ontology.bib}
+\addbibresource{vonLaszewski-frontiers-citations.bib}
+\addbibresource{ref-carpentry.bib}
+\addbibresource{ref-sinclair.bib}
+\addbibresource{ref-energy.bib}
+\addbibresource{ref-hpcbench.bib}
+\addbibresource{ref-profile.bib}
+
 \definecolor{headerblue}{RGB}{100, 149, 237} % Cornflower Blue
 \definecolor{lightgray}{gray}{0.9}
 \newcommand{\headerfont}{\fontsize{10pt}{12pt}\selectfont\bfseries}
 
-\usepackage{hyperref}
+
 
 \begin{document}
 
-\onecolumn
-\tableofcontents
+\newcommand{\TITLE}{AI Benchmark Carpentry and Democratization}
 
+\onecolumn
+\begin{center}
+   {\bf\large \TITLE} 
+\end{center}
+
+
+\tableofcontents
 \twocolumn
 
 
-\title{AI Benchmarks Carpentry and Democratization}
+\title{\TITLE}
 
 \input{0000-authors}
 
@@ -27,19 +51,20 @@
 \FINPUT{0030-definitions}
 \FINPUT{0040-formal}
 \FINPUT{0050-benchmark-review}
+\FINPUT{0100-profile}
 \FINPUT{0060-review-gpu-benchmarks}
 %\FINPUT{database}
 \FINPUT{0070-energy-benchmarks}
 %%% \FINPUT{008-gpu-info}
-\FINPUT{0090-share}
-\FINPUT{0100-profile}
 \FINPUT{0110-sim}
-\FINPUT{0120-tune}
-\input{0400-carpentry}
+\FINPUT{0090-share}
+\FINPUT{0400-carpentry}
+\FINPUT{0410-democratizing}
 \FINPUT{0530-conclusion}
 
 \FINPUT{0910-acknowledgments}
 
+\begin{comment}
 \bibliographystyle{IEEEtran} 
 
 \bibliography{%
@@ -51,7 +76,10 @@ ref-energy,%
 ref-hpcbench,%
 ref-profile
 }
-\appendix
+\end{comment}
+
+\printbibliography
+
 
 \FINPUT{0930-glossary}
 \FINPUT{0940-contribution}

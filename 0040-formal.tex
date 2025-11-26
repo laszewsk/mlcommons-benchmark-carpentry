@@ -7,8 +7,8 @@ As part of the MLCommons Science Working group meetings, we have identified that
 \begin{enumerate}
 \item Datasets (such as images, application specific scientific data, time series)
 \item Tasks to be performed 
-\item Methods to perform these tasks (such as machine language model, language models)
-\item Metrics (accuracy; performance of the resource executing the task at runtime, such as  
+\item Methods to perform these tasks (such as machine learning models, language models)
+\item Metrics (runtime; accuracy; efficiency computed from the resources required for executing the task, such as  
   space, 
   memory usage, 
   energy efficiency, 
@@ -24,7 +24,7 @@ and training time to reach target accuracy.
 
 To formalize the specification of a benchmark we introduce the following notation
 
-\[  B = (I, D, T, M, C_B, R) \]
+\[  B = (I, D, T, M, C, R) \]
 
 \[
 \begin{array}{ll}
@@ -33,7 +33,7 @@ I & = \text{Infrastructure} \\
 D & = \text{Dataset} \\
 T & = \text{Scientific Task} \\
 M & = \text{Metrics} \\
-C_B & = \text{Benchmark Constraint} \\
+C & = \text{Constraint} \\
 R & = \text{Results}
 \end{array}
 \]
@@ -49,16 +49,24 @@ P & = \text{Parameters}
 \end{array}
 \]
 
-Each of $B, I, D, T, M. R, A$ can have constraints. This is notated with 
+Each of $B, I, D, T, M, R, A$ can have constraints. This is notated with 
 
-\[C_c ~|~ c \in \{B, I, D, T, M. R, A\}\]
+\[C_c ~|~ c \in \{B, I, D, T, M, R, A\}\]
 
 And can be simply written in general as 
 
 \[ c = (c, C_c) ~|~ c \in \{B, I, D, T, M, R, A\} \]
 if needed.
 
- Next we describe briefly each of the parts that build a benchmark in more detail.
+In case, of static benchmarks many of the parameters may be fixed. However, when defining dynamic benchmarks, we define a metric that is to bi minimized while allowing a predefined set of parameters of the benchmark to be variable. Let $B_i(M)$ denote a benchamrk with a fixed metric M and variations in I, D, T, C, R  specified by i. We try to identify the minimum 
+
+\[ min \{ B_i(..., M, ...)(S_j) \mid \forall_j M(S_j)\} \]
+
+where $M(S_j)$ is the value of the solution for the metric.
+
+Let us assume M denotes the scientific accuracy of the benchmark. In this case we look for the best scientific solution. In many cases however we still have restrictions posed on the benchmark. While it is common to restrict the dataset, the variation in the algorithm used to minimize is often desired. This is based on the fact that in the scientific community we are not only interested in comparing hardware, but to actually fond the best algorithmic solution. Such a solution can then compared further while introducing efficiency or cost metrics comparing the cost it takes to achieve the best solution.
+
+Next we describe briefly each of the parts that build a benchmark in more detail.
 
 \subsection{Infrastructure}
 \label{sec:towards-infra}
@@ -66,8 +74,8 @@ if needed.
 Infrastructure refers to the computational and software environment required to execute the scientific task.
 
 This includes computational hardware, software libraries, operating systems, and cloud platforms, but also power related infrastructure to operate the resources.
-In many cases some of these parameters are not defined and are open targets to conduct benchmark comparison within the various infrastructures provided.
-However a single benchmark must be clearly described for each infrastructure on which it is executed with as many parameters as possible described.
+In many cases some of these parameters are targeted by the benchmark for comparison (e.g., different types of GPUs).
+As a guiding principle, an attempt should be made for each single benchmark to be clearly described with as many infrastructure parameters as possible. This will foster a clear description, reproducibility, and comparability of the benchmark.
 
 Clearly defined infrastructure will help with (a) reproducibility, as it ensures results can be reproduced across different environments, (b) fairness, as it identifies clearly the differences between different hardware and  software used, (c) scalability as through comparison we can identify various scalability issues and properties, (d) efficiency, as we can assess  resource use in regards to common metrics such as time, space, energy, and cost.
 
@@ -75,39 +83,36 @@ Clearly defined infrastructure will help with (a) reproducibility, as it ensures
 \label{sec:towards-dataset}
 
 A dataset or multiple datasets provide the input data for the scientific task to be performed.
-It is often delivering a sufficiently detailed and sized training data set to  evaluating various approaches for identifying AI models and their parameters.
+Datasets in benchmarking need to be stratified into training data (used to develop a machine learning model by direct interaction with the data), validation data (used to develop a machine learning model by indirect interaction, i.e., hyperparameter tuning), and test data (used to evaluate machine learning model performance after training).
+If the benchmark is concerned with hardware performance, not training any machine learning model, only a test dataset might be needed.
 In many cases, it is important to provide different sizes of data sets to enable (a) a small set for fast development of the approach, and (b) a larger set that fosters scientific accuracy with longer run-times.
-Intermitted sizes are also sometimes needed to adapt to available resource constraints to compare them on different scales.
-Data should always be sufficiently described through for example metadata or documentation so their context within the scientific application can be determined.
-Through these efforts we support the establishment of (a) 
-a ground truth, that serves as the basis for evaluating the scientific accuracy (b) a relevant and representative example that is influential for the scientific application, and (c) the identification of bias for data-driven applications.
+Intermediary sizes are also sometimes needed to adapt to available resource constraints to compare them on different scales.
+Data should always be sufficiently described through metadata or documentation so their context within the scientific application can be determined.
+Together, these facilitate the establishment of (a) a ground truth that serves as the basis for evaluating scientific accuracy (b) a relevant and representative example that is influential for the scientific application, and (c) the identification of bias for data-driven applications.
 
-It is important that we distinguish two different data sets.
-Although one would naively limit benchmarks to static data to limit the benchmarks on a defined set of data, recent efforts show in some cases we need to consider live data ingestion into benchmarks as they are already a standard way of conducting science in for example earth science.
-We term such datasets {\em living dataset}.
-Such living dataset are continuously updated with new data, edge cases, or corrections.
-Such live datasets could be real-time data, but could also include a simulation of real-time data while using a static dataset that is simulating the real time data update. 
-Obviously the simulated living data will be easier to use when trying to compare different approaches to the scientific task.
+We distinguish two different data sets: static and dynamic.
+If behavior can be tested statically, this is to be preferred; introduction of hyperparameters into a testing setup results in combinatorial explosion of possibilities, making some benchmarking approaches intractable or prohibitively expensive. In such case, constraints could be posed to restrict the benchmark to the most meaningful hyperparameters. In fact, doing this as part of the workflow could be an integral part of the benchmark. 
+For instance, a standard runtime test of a given compute task on different GPUs does not require dynamic datasets, as it is not expected that the results will change over time; the hardware parameters are fully specified.
+However, recent efforts have shown that, in some cases, we need to consider live data ingestion into benchmarks, for example, in earth science or health care applications, to support real-time predictions.
+We term such datasets {\em living datasets}, which are continuously updated with new data, edge cases, or corrections.
+Such living datasets could be real-time data, but could also include a simulation of real-time data while using a static dataset that is simulating the real time data update. While modifying the dataset the benchmark could evolve over time as the data available may be growing or become more accurate, supporting the need to identify the most accurate solution.
 
-The important part about live datasets is that it allows the identification of how a benchmarking task keeps relevant over time while improving it throughout time.
-It also can be used to identifying if it can adapt to issues such as over- and underfitting.
-Naturally, it encourages the development of solutions that provide continuous progress through evolving challenges set by scientific tasks.
+Living datasets allow us to maintain the relevance of a benchmarking task over time while simultaneously reacting to changes in the benchmarked systems.
+
+It can also be used to adapt the benchmark to issues like over- and underfitting.
+
+One additional aspect is that it can be useful to simulate such datasets and observe the changes of the benchmark when such data sets are utilized. Activities such as developing digital twins promote such approaches.
 
 \subsection{Scientific Task}
 \label{sec:towards-task}
 
-The scientific task identifies the core challenge being evaluated while precisely identifying its purpose within the scientific goals to be achieved. 
-It also identifies simple classifications of AI tasks such as classification, translation, reasoning, time series prediction, or planning conducted within the scientific applications.
+The scientific task identifies the core challenge being evaluated while precisely identifying the purpose of the evaluated components. 
+Typical tasks include classification, translation, reasoning, time series prediction, and planning.
+Through its precise definition, it sets the scope of the benchmark and introduces the community to the task to be executed and/or measured.
 
-Through the precise put short definition of task it sets the scope of the benchmark and introduces the community to the task to be executed and/or measured.
+In more complex situations, the task itself may be a scientific workflow comprised of interacting components. In that case we may use a graph specification of the scientific task that uses subtasks that interact through edges indicating data flows and temporal executions. In that case we can use $W$ instead of $T$ as the specification of a workflow with properly augmented edges. Each task could have its own benchmark.
 
-It sets the stage for specific research or application goals, while also providing input to the reasoning that determines dataset and the scientific metric definition.
-Most importantly it sets the stage for how different approaches can be compared by conduction the same scientific task.
-
-In some more complex task the task itself may be a scientific workflow comprised of interacting components. In that case we may use a graph specification of the scientific task that uses subtasks that are augmented in how they relate with each other through edges and indicating data flows and temporal executions. In that case we can also use $W$ instead of $T$ the specification of a workflow with properly augmented edges. Each task could have its own benchmark.
-
-Formally, $W = (T, E)$. Where, 
-$T$ represents the collection of all tasks 
+Formally, $W = (T, E)$, where  $T$ represents the collection of all tasks 
 
 \[
 T = \{t_1, t_2, t_3, \dots, t_n\}
@@ -122,35 +127,40 @@ E = \{(t_i, t_j) \mid t_i, t_j \in T, t_i \ne t_j\}
 
 where $(t_i, t_j) = (t_j, t_i)$.
 
-If the  workflow can not be specified in this fashion a clear specification of the workflow should be presented.
-
-The introduction of Workflows into the formal definition is also motivated by the recent utilization of {\em Agentic AI frameworks} that allows the integration of tasks that may or may not be using AI as benchmark, but its overall performance is important to complete the scientific task set out to complete.
+The introduction of Workflows into the formal definition is also motivated by the recent introduction of {\em Agentic AI frameworks} to support automation and benchmarking of it.
 
 \subsection{Metrics}
 \label{sec:towards-metrics}
 
-Metrics are quantitative measures used to assess the performance conducted to achieve the scientific task.
-A Benchmark can have many metrics and it is important to document the objective that is supposed to be achieved while utilizing a specific metric.
+Metrics are quantitative measures used to assess the relative performance of the tested system in completing the scientific task.
+It has been shown in much previous work that the selection of the metric is the most crucial part of the benchmarking process.
+A complex example of a difficult task, evaluated by a complex metric, is the problem of protein structure prediction as formalized by CASP.
+Their main metric, the Global Distance Test (GDT) encompasses a combination of relevant parameters that a protein structure prediction model should perform well on.
+In contrast, benchmarks that use simple metrics, such as the mean square error (MSE) or a static accuracy measurement, have been repeatedly criticised for not reflecting real-world performance.
 
-The goal of such metrics includes to identify the scientific accuracy of the benchmark in order to compare different models, parameters and datasets used in the benchmark.
-Metrics can also be used to identify tradeoffs in for example speed or accuracy.
-Most importantly, metrics can be used to establish a ranking of various benchmarks performed in similar circumstances under constraints.
-They help communicate the strengths and weaknesses of the benchmark in regards to the metric chosen.
+The choice of metric determines many other aspects of the benchmarking purpose.
+For instance, by choosing runtime (e.g., wall clock time) as the main metric, it is strongly implied that the benchmark's main purpose is to find the fastest hardware or algorithmic implementation.
+By choosing an accuracy metric (e.g., F1 score), it is instead implied that the predictive performance (e.g., in classification tasks) is the target of the benchmark.
+Complex metrics can visualize trade-offs between the primitive metrics; for instance, a benchmark for the efficiency of a classification algorithm can weight its F1 score against the runtime (per sample inference speed), model size (in parameters), and energy requirements.
 
-\subsection{Benchmark Constraints}
+Implemented in this way, metrics can be used to establish a ranking of the benchmarked components, given they were measured in similar circumstances and under similar constraints.
+
+\subsection{Constraints}
 \label{sec:towards-constraints}
 
-In many cases it is necessary to provide constraints to the benchmark as it will be establishing rules for conducting them and their evaluation.
-This may include limits to training, inference, model size or the data used. 
-Introducing constraints my foster (a) fairness wile executing the benchmark (b) introducing operational real-world limitations, and (c) support and simplify the experiment setup. 
+In many cases, it is necessary to constrain the benchmark to make the comparison tractable.
+This may include limits to training, inference, model size, or the amount of data used. 
+Introducing constraints can (a) improve fairness while executing the benchmark (b) address operational real-world limitations, and (c) simplify the experimental setup.
+Constraints can be applied to any component of the benchmark, e.g., $C_I$, $C_D$, etc.
 
 \subsection{Results}
 \label{sec:towards-res}
 
-A benchmark must produce results that are easy to comprehend to allow identifying the outcome of the task performed by the benchmark.
-This includes scientific accuracy of the task performed, but also a number of information allowing comparison while using different methods, models, and parameters.
-To simplify comparison it is desirable to create if possible comparative scores (which the accuracy is one of them), charts, tables and an understanding of the scientific error analysis.
-Through these efforts one can than identify through comparison (a) progress over time, (b) inform stakeholders about model capabilities, (c) identify limitations of the method including parameters used in the benchmark, and (d) establish a potential leader board for selecting suitable candidates that may be applicable to similar scientific tasks.
+A benchmark must produce clear easy to comprehend results to allow evaluation of the task performed and to perform unambiguous performance evaluation.
+As described above, a major determinant of the informativeness of a benchmark is the choice of metrics.
+Performance can be evaluated on main metrics (e.g., accuracy or runtime), but often also includes a grid search of various methods, models, and hyperparameters.
+To simplify comparison, metric dashboards with charts and tables, as well as error analysis, are recommended.
+This allows (a) analysis of progress over time, (b) informing stakeholders about model capabilities, (c) identifying limitations of the tested methods, and (d) establishing a potential leader board for selecting suitable candidates that may be applicable to similar scientific tasks.
 
 
 \begin{comment}

@@ -1,17 +1,29 @@
-\section{Profiling and performance analysis}
+% FROZEN
+% FROZEN
+% FROZEN
+% FROZEN
+
+\subsubsection{Profiling and performance analysis}
 \label{sec:prof}
 
-Profiling is the process of measuring a program's performance to reveal where resources (e.g., time and memory) are spent during execution. Profiling is important in AI benchmarking for the following reasons:
+Profiling is the process of measuring a program's performance in
+association with the locations in the source code in order to reveal
+where resources (e.g., time and memory) are spent during execution.
+Profiling is important in AI benchmarking for the following reasons:
 
 \begin{itemize}
-    \item Profiling helps explain why a particular method or implementation is faster than another.
+    \item Profiling helps explain why a particular method or
+    implementation variant is faster than another.
     \item Profiling helps support fair and reproducible benchmarking.
-    \item Profiling can distinguish between computation and overheads.
-    \item In a heterogeneous system, profiling can identify which components (e.g., CPU or GPU, CUDA cores vs. tensor cores) are being used by different parts of the application.
+    \item Profiling can distinguish between the essential computations
+    and extraneous overheads.
+    \item In a heterogeneous system, profiling can identify which
+    components (e.g., CPU or GPU's CUDA cores vs. tensor cores) are
+    being used by different parts of the application.
     \item Profiling can identify which specific library kernels are being used by different parts of the application.
 \end{itemize}
 
-Some profiling tools that are useful for analysis of deep learning applications are listed in Table~\ref{tab:dl_profiling_tools}.
+Table~\ref{tab:merged_profiling_tools} provides a list of profiling tools that are useful for analysis of deep learning applications.
 
 \begin{table*}[htbp]
 \centering
@@ -20,7 +32,7 @@ Some profiling tools that are useful for analysis of deep learning applications 
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{|p{0.2\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.4\textwidth}|}
 \hline
-\rowcolor{blue!20} \textbf{Tool / Category} & \textbf{Vendor / Maintainer} & \textbf{Level / Primary Use Case} & \textbf{Key Features and Capabilities} \\ 
+\rowcolor{blue!20} \textbf{Tool / Category} & \textbf{Vendor / Maintainer} & \textbf{Level / Primary Use Case} & \textbf{Key Features and Capabilities} \\
 \hline
 \hline
 \rowcolor{gray!30} \multicolumn{4}{|l|}{\textbf{Framework Profilers}} \\ \hline
@@ -53,11 +65,27 @@ Python Profilers (cProfile, py-spy)~\cite{Python_Profilers} & Python Community &
 \end{tabular}
 \end{table*}
 
-It's important to note that tools and services exist that support different levels and infrastructures, including examples for framework-level, system-level (including CPU and GPU), kernel-level, compiler-level, communication-level, and cloud-level. 
+It is important to note that the tooling and services exist for
+supporting different levels of infrastructures. This includes examples
+for framework-level, system-level (including CPU and GPU), kernel-level,
+compiler-level, communication-level, and cloud-level.
 
-Furthermore, we aim to provide comprehensive coverage of the AI profiling Stack, provide insights into cross-vendor and platform capabilities and offerings, and provids key feature analysis of the tools and services. 
+Furthermore, we aim here to provide comprehensive coverage of the AI
+profiling stack, which affords users the insights into cross-vendor and
+cross-platform capabilities and offerings, and also provide key analysis
+of features of the said tools and services.
 
-We believe it is essential to increase awareness and use of profiling tools through AI benchmarking efforts, enabling a better understanding of bottlenecks in AI applications. Furthermore, we need to educate the community about policy limitations that may implicitly restrict specific profiling tools. One such policy restriction is that, as we saw in the last section, not all profiling information is available for energy benchmarks. Such restrictions may also be in place for some hardware profiling. 
+We believe it is essential to increase awareness and use of profiling
+tools through AI benchmarking efforts, enabling a better understanding
+of bottlenecks in AI applications. Additionally, we need to educate the
+community about policy limitations that may implicitly restrict specific
+profiling tools. As discussed previously, one such policy restriction is
+that not all profiling information is available for energy benchmarks.
+Such restrictions may also be in place for additional hardware profiling
+measures.
 
-Lastly, we need to educate the community about the {\em performance impact} of profiling costs to avoid over-profiling. Therefore, it makes sense that AI benchmarks should be able to choose the level of profiling selectively. This information is vital to support the FAIR principle and ensure that benchmarks are comparable.
-
+Lastly, we need to educate the community about the {\em performance
+impact} of profiling costs to avoid over-profiling. Therefore, it makes
+sense that AI benchmarks should be able to choose the level of profiling
+selectively. This information is vital to support the FAIR principles
+and ensure that benchmarks are comparable.

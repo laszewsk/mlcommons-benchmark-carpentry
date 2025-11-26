@@ -102,8 +102,8 @@
 % -----------------------------------------------------
 % Hyperlinks & URLs
 % -----------------------------------------------------
+\usepackage[hyphens]{url}
 \usepackage{hyperref}
-\usepackage{url}
 \renewcommand{\UrlFont}{\footnotesize}
 
 % -----------------------------------------------------
@@ -147,7 +147,7 @@
 
 % Define \FINPUT macro: prints filename via \FILE, then inputs the file
 \newcommand{\FINPUT}[1]{%
-  \FILE{#1}%
+  % \FILE{#1}%
   
   \input{#1}%
 }

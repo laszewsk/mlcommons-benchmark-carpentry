@@ -5,8 +5,8 @@
 \subsection{Energy Benchmarking}
 \label{sec:energy}
 
-Energy consumption has quickly become a critical dimension of ML benchmarking. Training and inference with modern AI systems can require enormous computational resources. Training a single large-scale language model can consume megawatt-hours of electricity, often rivaling the annual energy consumption of households.  
-To illustrate the issue, we have provided in Table \ref{tab:energy-chatgpt} the energy required to train various ChatGPT models (some of which are projected, as no concrete data has been released). Additionally, we have included the energy cost for one million inference calls. Here, training energy refers to total estimated power consumption during model training; inference energy represents the approximate power required for one million user queries. Values are derived from public estimates and projections—OpenAI has not released official figures \cite{sciencefeedback2024energy,kaplan2020scaling}. GPT-3 took $\approx$ 1,287 MWh to train~\cite{patterson2021carbon}, which is approximately equivalent to the annual power consumption of 130 homes in the US~\cite{WECEnergy}. 
+Energy consumption has quickly become a critical dimension of ML benchmarking. Training and inference with modern AI systems can require enormous computational resources. \TODO{Training a single large-scale language model can consume megawatt-hours of electricity, often rivaling the annual energy consumption of households.}  
+To illustrate the issue, we have provided in Table \ref{tab:energy-chatgpt} and Figure \ref{fig:energy-consumption} the energy required to train various ChatGPT models \TODO{(some of which are estimated or projected, as no concrete data has been released).} Additionally, we have included the energy cost for one million inference calls. Here, training energy refers to total estimated power consumption during model training; inference energy represents the approximate power required for one million user queries. Values are derived from public estimates and projections—OpenAI has not released official figures \cite{sciencefeedback2024energy,kaplan2020scaling}. GPT-3 took $\approx$ 1,287 MWh to train~\cite{patterson2021carbon}, which is approximately equivalent to the annual power consumption of 130 homes in the US~\cite{WECEnergy}. 
 
 For the U.S. Department of Energy (DOE) leadership-class machines, such as those hosted at Oak Ridge National Laboratory (see Table \ref{tab:ornl-energy}), we find documented and significant progress toward exascale, but at the cost of increased energy consumption that more than doubled during the last generational upgrade. However, the Peak Performance per energy unit has increased significantly, and compared to Jaguar's initial values, Frontier has improved by a factor of 209.
 
@@ -14,7 +14,7 @@ For the U.S. Department of Energy (DOE) leadership-class machines, such as those
 \begin{table}[tb]
 \centering
 \caption{Estimated Energy Consumption of GPT Models for Training and Inference 
-(based on \cite{brown2020language, patterson2021carbon, medium2023gpt4carbon, 
+(Based on \cite{brown2020language, patterson2021carbon, medium2023gpt4carbon, 
 extremenetworks2023energy, epochai2024compute, hackernoon2024dirtysecret}).}
 \label{tab:energy-chatgpt}
 \resizebox{\columnwidth}{!}{
@@ -35,37 +35,38 @@ GPT-6 & 80,000--100,000 (projected) \cite{epochai2024compute} & $\sim$1,000--1,5
 \begin{figure}[tb]
     \centering
     \includegraphics[width=1.0\linewidth]{images/gpt_energy_comparison.pdf}
-    \caption{Energy consumption for training ChatGPT and inferencing 1 Million queries.}
-    \label{fig:placeholder}
+    \caption{Energy Consumption for Training ChatGPT and Inferencing 1 Million Queries \TODO{(Data for GPT-5 is estimated, GPT-6 is projected.).} }
+    \label{fig:energy-consumption}
 \end{figure}
 
 
 \begin{table}[tb]
 
-    \caption{Evolution of the leadership class supercomputer at Oak Ridge National Laboratory}
+    \caption{Evolution of the Leadership Class Supercomputer at Oak Ridge National Laboratory}
     \label{tab:ornl-energy}
     
     \resizebox{\columnwidth}{!}{
-        \begin{tabular}{|l|c|l|r|r|r|}
+        \begin{tabular}{|l|c|l|r|r|r|r|r|}
             \hline
-            \textbf{Machine} & \textbf{Year} & \textbf{Architecture} & \textbf{\makecell{Peak \\ Performance\\(PF)$^*$}} & \textbf{\makecell{Power\\ (MW)}} & \textbf{\makecell{Performance/\\Power\\(PF/MW)}} \\
+            \textbf{Machine} & \textbf{Year} & \textbf{Architecture} & $R_{max}$ Scaling & \textbf{\makecell{$R_{max}$ \\ PFlops/s}} & \textbf{\makecell{$R_{peak}$ \\ PFlops/s}} & \textbf{\makecell{Power\\ (MW)}} & \textbf{\makecell{$R_{max}/$Power\\(PF/MW)}} \\
             \hline
             \hline
-            Jaguar\cite{BlandRogers2009-jaguar}   & 2009 & Multi-core CPU & 2.3   & 7  & 0.33 \\
+            Jaguar\cite{BlandRogers2009-jaguar}       & 2009 & Multi-core CPU  & 1 &    1941 &    2628 & 7  & 277.29 \\
             \hline
-            Titan\cite{Bland2012-titan}    & 2012 & Hybrid CPU/GPU & 27    & 9  & 3.00 \\
+            Titan\cite{Bland2012-titan}               & 2012 & Hybrid CPU/GPU  & 9.06 &   17590 &   27113 & 9  & 1954.44  \\
             \hline
-            Summit\cite{WombleShankar2019-summit}   & 2017 & Hybrid CPU/GPU & 200   & 13 & 15.38 \\
+            Summit\cite{WombleShankar2019-summit}     & 2017 & Hybrid CPU/GPU  & 76.6 &  148600 &  200795 & 13  & 11430.77  \\
             \hline
-            Frontier\cite{AtchleyZimmer2023-frontier} & 2021 & Hybrid CPU/GPU & 2000  & 29 & 68.97 \\
+            Frontier\cite{AtchleyZimmer2023-frontier} & 2022 & Hybrid CPU/GPU  & 697.1 & 1353000 & 2055717 & 29  & 46655.17  \\
             \hline
         \end{tabular}
     }
 
     \smallskip
-    {\tiny~~ $^*$PF=\emph{peta–floating-point operations per second}; $1\;\text{PF}=10^{15}\text{FLOPS}.$
-
-    ~~~ Data derived from Papatheodore~\cite{papatheodore2022summitfrontier}.
+    {\tiny~~ $^*$PF=\emph{Theoretical peta–floating-point operations per second}; $1\;\text{PF}=10^{15}\text{FLOPS}.$
+    
+    $R_{max}$ = maximal LINPACK performance achieved.
+    $R_{peak}$ = theoretical peak performance.
     }
 \end{table}
 
@@ -115,7 +116,7 @@ Energy-aware benchmarks help ensure that AI development aligns with broader goal
 
 Thus, we see several opportunities. First, we need to make energy benchmarks more prominent and provide materials and tutorials as part of AI benchmark carpentry to educate the community. Second, we must ensure that not only the most expensive hardware, such as leadership-class and hyper-scale data centers, is used, but also medium- and even small-scale hardware, so that democratizing energy benchmarks within the community is easy to implement. This way, measurements of even smaller AI-based scientific applications can integrate energy consumption into their benchmarks, and meaningful comparisons with traditional algorithms that do not use AI can be drawn. Third, we must ensure that energy metrics and logs can be accessed and uniformly integrated into the AI benchmarks.
 
-\subsubsection{AI energy benchmark carpentry}
+\subsubsection{AI Energy Benchmark Carpentry}
 
 To support AI energy benchmark carpentry efforts, we need to address the following issues:
 
@@ -184,7 +185,7 @@ We believe we have to go beyond established leaderboards such as {\em Green500} 
 \renewcommand{\arraystretch}{1.1}
 \begin{table*}[hptb]
   \centering
-  \caption{Energy- or carbon-efficiency benchmarks (B) and tools (T) used in scientific-HPC research.}
+  \caption{Energy- or Carbon-Efficiency (B)enchmarks and (T)ools used in Scientific-HPC research.}
   \label{tab:hpc_energy_catalog}
 
   \resizebox{\textwidth}{!}{%
@@ -243,6 +244,6 @@ We believe we have to go beyond established leaderboards such as {\em Green500} 
 \end{table*}
 
 
-\subsubsection{Leveraging previous work}
+\subsubsection{Leveraging Previous Work}
 
 As we can see from the table, a large number of tools and benchmarks exist, and we can leverage them to work towards a FAIR-based approach on energy benchmarks. This is all the more important when developing concise carpentry and democratization efforts. The distinction in the layered architecture for energy benchmarks also helps, as it is often not possible or desirable to address all layers at once. It is evident that energy benchmarking, in itself, is a complex research topic, and that carpentry efforts must be established to bring this knowledge forward and enhance AI benchmarks into AI energy benchmarks.

@@ -10,7 +10,7 @@
 
 In this section, we introduce some of the definitions and terminology used throughout this work in order to work towards a formal definition of AI benchmarks.
 
-\subsection{What is benchmarking?}
+\subsection{What is Benchmarking?}
 \label{sec:definition-benchmarking}
 
 
@@ -21,7 +21,7 @@ The goals of benchmarking include identifying performance gaps, establishing bas
 In addition to the classical primary outcome metrics (runtime, accuracy, efficiency), today's benchmarks evaluate secondary qualities that are of high importance to the real-world deployment of systems. These include robustness and reliability (stability with respect to distribution shifts and noise, generalization), usability and accessibility (ease of integration with other systems, error transparency, ease of setup), and reproducibility (stability of the results and consistent behavior across versions, seeds, or environments).
 
 
-\subsection{Lessons learned from traditional HPC benchmarking}
+\subsection{Lessons Learned from Traditional HPC Benchmarking}
 
 Traditional high-performance computing (HPC) benchmarking includes:  
 
@@ -42,7 +42,7 @@ HPC benchmarking has traditionally focused on supercomputing performance compari
 HPC benchmarks are often executed under controlled conditions, such as those maintained by system administrators, to ensure exclusive access to hardware and eliminate interference from other users or applications. This approach allows for measurement of the best achievable performance and is frequently used to guide system procurement decisions. However, such conditions do not reflect the shared nature of most computing environments, which often include factors such as queue wait times and concurrent multi-user workloads sharing hardware resources.
 
 
-\subsection{What is democratization?}
+\subsection{What is Democratization?}
 \label{sec:definition-democratization}
 
 We believe it is vital not only to allow experts and power users to participate in benchmarking efforts but also to lower barriers to entry — making powerful benchmarks, tools, knowledge, and infrastructure available to everyone, not just those with specialized resources or expertise. For benchmarking, this implies in particular to improve the following:-
@@ -73,12 +73,10 @@ One must recognize that a significant amount of progress in AI research is condu
 
 To set the stage for why we need AI benchmark carpentry, we need to first look at how the term has been introduced and is now commonly associated with software carpentry. After a more detailed analysis of software carpentry, we define the term AI benchmark carpentry.
 
-Software Carpentry \cite{wilson2014software} was initially conceived to teach researchers in scientific fields fundamental computational and software development skills akin analogous to a hammer or level in a tool belt. Thus, non-computer scientists would improve the use and development of the software they need to conduct their own research while benefiting from targeted, short educational tutorials. 
+Software Carpentry \cite{wilson2014software} was initially conceived to teach researchers in scientific fields fundamental computational and software development skills,  analogous to a hammer or level in a tool belt. Thus, non-computer scientists would be able to improve the use and development of the software they need to conduct their own research while benefiting from targeted, short educational tutorials. 
 
-Today, a global community effort has sprung up since 2018~\cite{softwarecarpentry2024} that provides a number of training materials and sessions to the scientific community to we can leverage in some extend. Recently, additional areas beyond software, such as data carpentry \cite{teal2015data,datacarpentry2025} 
-% and library 
-%  \cite{baker2016library,librarycarpentry2025}, have been added, but does not cover benchmarking sufficiently.
-Together, this includes:
+Today, a global community effort has sprung up since 1998~\cite{softwarecarpentry2024} that provides a number of training materials and sessions to the scientific community to we can leverage in some extend. Recently, additional areas beyond software, such as data carpentry.
+Together, these efforts includes:
 
 \begin{itemize}
   \item \textbf{Software Carpentry Core Efforts:} 
@@ -118,7 +116,7 @@ Related to this is the {\em Network performance} metric, which measures bandwidt
 
 On the software side, successful applications of benchmarks include the challenges that facilitated the development of image analysis software \TODO{cite ImageNet https://arxiv.org/abs/1409.0575}, protein structure prediction \TODO{cite CASP https://doi.org/10.1002/prot.340230303}, and single-cell analysis \TODO{cite Open Problems https://www.nature.com/articles/s41587-025-02694-w}.
 An integral element of these successful projects is their focus on deliberating a comprehensive critical set of metrics that have high informative power with respect to the identified challenge.
-In those cases of comparative software evaluation, it is often advisable to emphasise the separation of a hold-out test set and prevent any leakage of data from the public training set into the private test set, as modern high-parameter modelling approaches will exploit data leakage to artificially enhance performance metrics without real performance gains.
+In those cases of comparative software evaluation, it is often advisable to emphasize the separation of a hold-out test set and prevent any leakage of data from the public training set into the private test set, as modern high-parameter modelling approaches will exploit data leakage to artificially enhance performance metrics without real performance gains.
 \end{comment}
 
 

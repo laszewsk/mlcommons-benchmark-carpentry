@@ -9,7 +9,7 @@ BIBER = biber
 LATEXFLAGS = -interaction=nonstopmode -halt-on-error
 
 # Files to clean
-CLEANFILES = *.aux *.log *.blg *.bcf *.toc *.out *.lof *.lot *.fls *.fdb_latexmk
+CLEANFILES = *.bbl *.aux *.log *.blg *.bcf *.toc *.out *.lof *.lot *.fls *.fdb_latexmk
 
 .PHONY: all clean view zip
 

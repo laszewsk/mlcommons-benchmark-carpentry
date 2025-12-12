@@ -4,24 +4,7 @@
 \IEEEoverridecommandlockouts
 \input{paper-format}
 
-    \usepackage[
-        backend=biber,
-        bibstyle=ieee,
-        maxnames=30,
-        minnames=1,
-        maxcitenames=2,
-        mincitenames=1,
-        bibencoding=utf8,
-        safeinputenc
-    ]{biblatex}
 
-    \addbibresource{ref-0-ontology.bib}
-    \addbibresource{vonLaszewski-frontiers-citations.bib}
-    \addbibresource{ref-carpentry.bib}
-    \addbibresource{ref-sinclair.bib}
-    \addbibresource{ref-energy.bib}
-    \addbibresource{ref-hpcbench.bib}
-    \addbibresource{ref-profile.bib}
 
 \definecolor{headerblue}{RGB}{100, 149, 237}
 \definecolor{lightgray}{gray}{0.9}
@@ -61,8 +44,21 @@
 
 \input{0910-acknowledgments}
 
-\printbibliography
 
+% ------------------------------------------------------
+% USE .bbl FILE  (BibTeX workflow)
+% ------------------------------------------------------
+\bibliographystyle{IEEEtran}
+\bibliography{%
+       ref-0-ontology,
+       vonLaszewski-frontiers-citations,
+       ref-carpentry,
+       ref-sinclair,
+       ref-energy,
+       ref-hpcbench,
+       ref-profile
+     }
+     
 \input{0930-glossary}
 \input{0940-contribution}
 

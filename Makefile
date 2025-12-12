@@ -4,32 +4,37 @@ MAIN = vonLaszewski-mlcommons-benchmark-carpentry
 # Compilers
 LATEX = pdflatex
 BIBER = biber
+BIBTEX = bibtex
 
 # Compilation flags
 LATEXFLAGS = -interaction=nonstopmode -halt-on-error
 
 # Files to clean
-CLEANFILES = *.bbl *.aux *.log *.blg *.bcf *.toc *.out *.lof *.lot *.fls *.fdb_latexmk
+CLEANFILES = *.bbl *.aux *.log *.blg *.bcf *.toc *.out *.lof *.lot *.fls *.fdb_latexmk *.run.xml
 
 .PHONY: all clean view zip
 
 # Default target
-all: $(MAIN).pdf
+all: biblatex
 
-# PDF build target
-$(MAIN).pdf: $(MAIN).tex
-	@echo "Running LaTeX first pass..."
+biblatex: clean
+	cp $(MAIN)-biblatex.tex $(MAIN).tex
 	$(LATEX) $(LATEXFLAGS) $(MAIN).tex
-	@echo "Running Biber for bibliography..."
 	$(BIBER) $(MAIN)
-	@echo "Running LaTeX second pass..."
 	$(LATEX) $(LATEXFLAGS) $(MAIN).tex
-	@echo "Running LaTeX final pass..."
 	$(LATEX) $(LATEXFLAGS) $(MAIN).tex
-	@echo "Build complete!"
+
+
+bibtex: clean
+	rm -f *.bbl *.aux
+	cp $(MAIN)-bibtex.tex $(MAIN).tex
+	$(LATEX) $(MAIN).tex
+	$(BIBTEX) $(MAIN)
+	$(LATEX) $(MAIN).tex
+	$(LATEX)  $(MAIN).tex
 
 # Open PDF
-view: $(MAIN).pdf
+view:
 	open $(MAIN).pdf
 
 # Clean auxiliary files
@@ -41,5 +46,15 @@ clean:
 # Create zip archive for submission
 zip:
 	@echo "Creating zip archive..."
+	zip -r arxiv-carpentry.zip *.tex *.bib *.bbl images ontology *.cls *.bst \
+    		-x vonLaszewski-mlcommons-benchmark-carpentry-biblatex.tex \
+       		   vonLaszewski-mlcommons-benchmark-carpentry-bibtex.tex
+	@echo "Zip archive created: arxiv-carpentry.zip"
+
+
+	@echo "Creating zip archive..."
 	zip -r arxiv-carpentry.zip *.tex *.bib *.bbl images ontology *.cls *.bst
 	@echo "Zip archive created: arxiv-carpentry.zip"
+
+log:
+	open -a Aquamacs vonLaszewski-mlcommons-benchmark-carpentry.log

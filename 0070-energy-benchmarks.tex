@@ -1,10 +1,12 @@
 \subsection{Energy Benchmarking}
 \label{sec:energy}
 
-Energy consumption has quickly become a critical dimension of ML benchmarking. Training and inference with modern AI systems can require enormous computational resources. \TODO{Training a single large-scale language model can consume megawatt-hours of electricity, often rivaling the annual energy consumption of households.}  
-To illustrate the issue, we have provided in Table \ref{tab:energy-chatgpt} and Figure \ref{fig:energy-consumption} the energy required to train various ChatGPT models \TODO{(some of which are estimated or projected, as no concrete data has been released).} Additionally, we have included the energy cost for one million inference calls. Here, training energy refers to total estimated power consumption during model training; inference energy represents the approximate power required for one million user queries. Values are derived from public estimates and projections—OpenAI has not released official figures \cite{sciencefeedback2024energy,kaplan2020scaling}. GPT-3 took $\approx$ 1,287 MWh to train~\cite{patterson2021carbon}, which is approximately equivalent to the annual power consumption of 130 homes in the US~\cite{WECEnergy}. 
+Energy consumption is a critical component of  ML benchmarking. Training and inference with modern AI systems can require enormous computational resources. 
 
-For the U.S. Department of Energy (DOE) leadership-class machines, such as those hosted at Oak Ridge National Laboratory (see Table \ref{tab:ornl-energy}), we find documented and significant progress toward exascale, but at the cost of increased energy consumption that more than doubled during the last generational upgrade. However, the Peak Performance per energy unit has increased significantly, and compared to Jaguar's initial values, Frontier has improved by a factor of 209.
+
+To illustrate the issue, we have provided in Table \ref{tab:energy-chatgpt} and Figure \ref{fig:energy-consumption} the energy required to train various ChatGPT models (some of which are estimated as no public data has been released \cite{sciencefeedback2024energy,kaplan2020scaling}, such as GPT-5 and GPT-6). The training of a single large-scale language model (GPT-3) consumes approximately 1,287 MWh placing it in the same range as the annual energy usage of about 130 U.S. households, according to U.S. Energy Information Administration (EIA) statistics on average residential electricity consumption \cite{EIA_Electricity_Price_2025,eia2024residential,WECEnergy,patterson2021carbon,jegham2025hungryaibenchmarkingenergy,baeldung2023energy}. 
+
+For the U.S. Department of Energy (DOE) leadership-class machines, such as those hosted at Oak Ridge National Laboratory (see Table \ref{tab:ornl-energy}), we find documented and significant progress toward exascale, but at the cost of increased energy consumption that more than doubled during the last generational upgrade. However, the Peak Performance per energy unit has increased significantly, and compared to Jaguar's initial values, Frontier has improved by a factor of 209, thus becoming relatively more efficient despite overall energy consumption needs.
 
 
 \begin{table}[tb]
@@ -31,7 +33,7 @@ GPT-6 & 80,000--100,000 (projected) \cite{epochai2024compute} & $\sim$1,000--1,5
 \begin{figure}[tb]
     \centering
     \includegraphics[width=1.0\linewidth]{images/gpt_energy_comparison.pdf}
-    \caption{Energy Consumption for Training ChatGPT and Inferencing 1 Million Queries \TODO{(Data for GPT-5 is estimated, GPT-6 is projected.).} }
+    \caption{Energy Consumption for ChatGPT Training and Inferencing 1 Million Queries \TODO{(Data for GPT-5 and 6 are estimates).} }
     \label{fig:energy-consumption}
 \end{figure}
 
